@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AXEUM — Governed Orchestration</title>
+  <meta name="description" content="From blue collar to copper collar. Axeum is creating governed orchestration for the age of AI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════
+       COPPER SPECTRUM — Design Tokens
+       ═══════════════════════════════════════════════ */
+    :root {
+      --copper: #D4A574;
+      --copper-conductor: #C49A6C;
+      --copper-polished: #E8C9A0;
+      --copper-raw: #B87333;
+
+      --obsidian: #1A1A1A;
+      --graphite: #2D2D2D;
+      --charcoal: #3D3835;
+      --ivory: #FAF8F5;
+      --warm-white: #F5F2ED;
+      --stone: #E5E2DD;
+
+      --green: #4A7C59;
+      --amber: #D4A04A;
+      --burgundy: #8B3A3A;
+
+      --blue-collar: #5B7B9A;
+      --white-collar: #A8A8A8;
+      --grey-collar: #6B6B6B;
+
+      --copper-glow: rgba(212, 165, 116, 0.15);
+      --copper-ghost: rgba(212, 165, 116, 0.06);
+
+      --font-display: 'Cormorant Garamond', Garamond, Georgia, serif;
+      --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-5: 40px;
+      --space-6: 48px;
+      --space-8: 64px;
+      --space-10: 80px;
+      --space-12: 96px;
+      --space-16: 128px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: var(--obsidian);
+      color: var(--ivory);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--copper); color: var(--obsidian); }
+
+    /* Noise overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       COPPER THREAD SVG
+       ═══════════════════════════════════════════════ */
+    .copper-thread-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .copper-thread-container svg { width: 100%; height: 100%; }
+
+    .copper-thread-path {
+      fill: none;
+      stroke: var(--copper);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 6px rgba(212, 165, 116, 0.3));
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTIONS
+       ═══════════════════════════════════════════════ */
+    .section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-8) var(--space-4);
+    }
+
+    .section-inner {
+      max-width: 860px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Reveal animations */
+    .reveal-children > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal-children.visible > *:nth-child(1) { transition-delay: 0s; }
+    .reveal-children.visible > *:nth-child(2) { transition-delay: 0.15s; }
+    .reveal-children.visible > *:nth-child(3) { transition-delay: 0.3s; }
+    .reveal-children.visible > *:nth-child(4) { transition-delay: 0.45s; }
+    .reveal-children.visible > *:nth-child(5) { transition-delay: 0.6s; }
+    .reveal-children.visible > *:nth-child(6) { transition-delay: 0.75s; }
+
+    .reveal-children.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════════
+       ERA LABELS
+       ═══════════════════════════════════════════════ */
+    .era-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: var(--space-3);
+      position: relative;
+      display: inline-block;
+    }
+
+    .era-label::before,
+    .era-label::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 32px;
+      height: 1px;
+      background: var(--copper);
+      opacity: 0.4;
+    }
+
+    .era-label::before { right: calc(100% + 16px); }
+    .era-label::after { left: calc(100% + 16px); }
+
+    /* ═══════════════════════════════════════════════
+       COLLAR BADGES
+       ═══════════════════════════════════════════════ */
+    .collar-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: var(--space-1) var(--space-3);
+      border: 1px solid;
+      margin-bottom: var(--space-5);
+    }
+
+    .collar-badge.blue {
+      color: var(--blue-collar);
+      border-color: var(--blue-collar);
+      background: rgba(91, 123, 154, 0.08);
+    }
+
+    .collar-badge.white {
+      color: var(--white-collar);
+      border-color: var(--white-collar);
+      background: rgba(168, 168, 168, 0.06);
+    }
+
+    .collar-badge.grey {
+      color: var(--grey-collar);
+      border-color: var(--grey-collar);
+      background: rgba(107, 107, 107, 0.08);
+    }
+
+    .collar-badge.copper {
+      color: var(--copper);
+      border-color: var(--copper);
+      background: rgba(212, 165, 116, 0.08);
+      box-shadow: 0 0 20px rgba(212, 165, 116, 0.1);
+    }
+
+    /* ═══════════════════════════════════════════════
+       TYPOGRAPHY
+       ═══════════════════════════════════════════════ */
+    .quote {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      line-height: 1.4;
+      color: var(--ivory);
+      margin-bottom: var(--space-4);
+      font-style: italic;
+    }
+
+    .narrative {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      line-height: 1.75;
+      margin-bottom: var(--space-4);
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .subline {
+      font-family: var(--font-body);
+      font-size: clamp(0.875rem, 1.5vw, 1rem);
+      font-weight: 300;
+      color: var(--stone);
+      letter-spacing: 0.02em;
+      opacity: 0.6;
+    }
+
+    .stat {
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+      color: var(--stone);
+      opacity: 0.4;
+      letter-spacing: 0.1em;
+      margin-top: var(--space-2);
+    }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-8) var(--space-4);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, var(--copper-ghost) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════════════════
+       HERO VIDEO BACKGROUND
+       ═══════════════════════════════════════════════ */
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-video-bg video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.45;
+    }
+
+    .hero-video-bg canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Gradient vignette over video/canvas */
+    .hero-video-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, transparent 30%, var(--obsidian) 100%),
+        linear-gradient(180deg, rgba(26, 26, 26, 0.3) 0%, transparent 30%, transparent 70%, var(--obsidian) 100%);
+      pointer-events: none;
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: wordmark-in 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+    }
+
+    .wordmark::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--copper) 20%, var(--copper) 80%, transparent 100%);
+      opacity: 0;
+      animation: thread-in 1s ease-out 1.4s forwards;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: clamp(0.9rem, 2vw, 1.15rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-top: var(--space-4);
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fade-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: var(--space-6);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-1);
+      z-index: 2;
+      opacity: 0;
+      animation: fade-up 0.6s ease-out 1.8s forwards;
+    }
+
+    .scroll-indicator span {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--stone);
+      opacity: 0.4;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--copper) 0%, transparent 100%);
+      animation: pulse-line 2s ease-in-out infinite 2.2s;
+    }
+
+    /* ═══════════════════════════════════════════════
+       TIMELINE CONNECTOR
+       ═══════════════════════════════════════════════ */
+    .timeline-connector {
+      width: 1px;
+      height: var(--space-12);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline-connector::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: 1px;
+      left: 50%;
+    }
+
+    .timeline-connector.blue-to-white::before {
+      background: linear-gradient(180deg, var(--blue-collar), var(--white-collar));
+      opacity: 0.3;
+    }
+
+    .timeline-connector.white-to-grey::before {
+      background: linear-gradient(180deg, var(--white-collar), var(--grey-collar));
+      opacity: 0.3;
+    }
+
+    .timeline-connector.grey-to-copper::before {
+      background: linear-gradient(180deg, var(--grey-collar), var(--copper));
+      opacity: 0.4;
+    }
+
+    .timeline-connector .connector-year {
+      position: absolute;
+      left: calc(50% + 16px);
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--stone);
+      opacity: 0.3;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════════
+       BLUE COLLAR ERA
+       ═══════════════════════════════════════════════ */
+    .era-blue {
+      background: var(--obsidian);
+      position: relative;
+    }
+
+    .era-blue::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--graphite) 1px, transparent 1px),
+        linear-gradient(90deg, var(--graphite) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.1;
+      mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 20%, transparent 80%);
+    }
+
+    /* ═══════════════════════════════════════════════
+       WHITE COLLAR ERA
+       ═══════════════════════════════════════════════ */
+    .era-white {
+      background: linear-gradient(180deg, var(--obsidian) 0%, #1E1E1E 100%);
+      position: relative;
+    }
+
+    .era-white::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 59px,
+        rgba(168, 168, 168, 0.03) 59px, rgba(168, 168, 168, 0.03) 60px
+      );
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       GREY COLLAR ERA
+       ═══════════════════════════════════════════════ */
+    .era-grey {
+      background: linear-gradient(180deg, #1E1E1E 0%, var(--graphite) 100%);
+      position: relative;
+    }
+
+    /* Fragmentation — broken diagonal lines */
+    .era-grey::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(37deg, transparent 48%, rgba(107, 107, 107, 0.05) 49%, rgba(107, 107, 107, 0.05) 51%, transparent 52%),
+        linear-gradient(-23deg, transparent 48%, rgba(107, 107, 107, 0.04) 49%, rgba(107, 107, 107, 0.04) 51%, transparent 52%),
+        linear-gradient(67deg, transparent 48%, rgba(107, 107, 107, 0.03) 49%, rgba(107, 107, 107, 0.03) 51%, transparent 52%);
+      background-size: 100px 100px;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       COPPER COLLAR ERA
+       ═══════════════════════════════════════════════ */
+    .era-copper {
+      background: linear-gradient(180deg, var(--graphite) 0%, var(--charcoal) 50%, var(--graphite) 100%);
+      position: relative;
+    }
+
+    .era-copper::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, var(--copper-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .era-copper .quote {
+      color: var(--ivory);
+    }
+
+    .era-copper .narrative {
+      color: var(--copper-polished);
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESOLUTION SECTION
+       ═══════════════════════════════════════════════ */
+    .resolution {
+      background: var(--obsidian);
+      position: relative;
+      min-height: 80vh;
+    }
+
+    .resolution::before {
+      content: '';
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(212, 165, 116, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .resolution-wordmark {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: var(--space-2);
+    }
+
+    .resolution-tagline {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      margin-bottom: var(--space-8);
+      opacity: 0.8;
+    }
+
+    .resolution-line {
+      width: 80px;
+      height: 2px;
+      background: var(--copper);
+      margin: 0 auto var(--space-6);
+      opacity: 0.6;
+    }
+
+    .resolution-quote {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+      font-style: italic;
+      color: var(--warm-white);
+      line-height: 1.5;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════════════
+       DIVIDERS
+       ═══════════════════════════════════════════════ */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 10%, var(--copper) 50%, transparent 90%);
+      opacity: 0.12;
+    }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════ */
+    .footer {
+      background: var(--obsidian);
+      padding: var(--space-10) var(--space-4) var(--space-8);
+      text-align: center;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20%;
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper-conductor), transparent);
+      opacity: 0.15;
+    }
+
+    .footer-contact {
+      margin-bottom: var(--space-6);
+    }
+
+    .footer-contact a {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+      text-decoration: none;
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid rgba(229, 226, 221, 0.15);
+      transition: all 0.4s ease;
+    }
+
+    .footer-contact a:hover {
+      color: var(--copper);
+      border-color: var(--copper);
+      background: var(--copper-ghost);
+    }
+
+    .footer-legal {
+      margin-bottom: var(--space-4);
+    }
+
+    .footer-legal a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+      text-decoration: none;
+      opacity: 0.4;
+      transition: all 0.3s ease;
+    }
+
+    .footer-legal a:hover {
+      color: var(--copper);
+      opacity: 0.8;
+    }
+
+    .footer-dot {
+      color: var(--stone);
+      opacity: 0.2;
+      margin: 0 var(--space-2);
+    }
+
+    .footer-copyright {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--stone);
+      opacity: 0.3;
+    }
+
+    /* ═══════════════════════════════════════════════
+       KEYFRAMES
+       ═══════════════════════════════════════════════ */
+    @keyframes wordmark-in {
+      from { opacity: 0; transform: translateY(20px); letter-spacing: 0.25em; }
+      to { opacity: 1; transform: translateY(0); letter-spacing: 0.15em; }
+    }
+
+    @keyframes thread-in {
+      from { opacity: 0; width: 0%; left: 50%; }
+      to { opacity: 0.6; width: 80%; left: 10%; }
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse-line {
+      0%, 100% { opacity: 0.3; height: 40px; }
+      50% { opacity: 0.8; height: 52px; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .section {
+        padding: var(--space-10) var(--space-3);
+        min-height: auto;
+        padding-top: var(--space-12);
+        padding-bottom: var(--space-12);
+      }
+
+      .hero { min-height: 100vh; }
+
+      .era-label::before,
+      .era-label::after { width: 20px; }
+
+      .hero::before { width: 300px; height: 200px; }
+
+      .era-copper::before { width: 300px; height: 200px; }
+
+      .resolution::before { width: 350px; height: 250px; }
+
+      .copper-thread-container { display: none; }
+
+      .timeline-connector { height: var(--space-8); }
+
+      .timeline-connector .connector-year { display: none; }
+
+      .collar-badge { font-size: 11px; }
+
+      .narrative { font-size: 0.95rem; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .section-inner { max-width: 680px; }
+    }
+
+    @media (min-width: 1025px) {
+      .section-inner { max-width: 860px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ COPPER THREAD ══════════ -->
+  <div class="copper-thread-container" aria-hidden="true">
+    <svg viewBox="0 0 1440 7200" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="copper-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#5B7B9A" stop-opacity="0.3" />
+          <stop offset="15%" stop-color="#5B7B9A" stop-opacity="0.4" />
+          <stop offset="30%" stop-color="#A8A8A8" stop-opacity="0.4" />
+          <stop offset="50%" stop-color="#6B6B6B" stop-opacity="0.4" />
+          <stop offset="70%" stop-color="#B87333" stop-opacity="0.6" />
+          <stop offset="85%" stop-color="#D4A574" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#E8C9A0" stop-opacity="1" />
+        </linearGradient>
+      </defs>
+      <path
+        class="copper-thread-path"
+        stroke="url(#copper-grad)"
+        d="
+          M 720 500
+          C 720 600, 650 700, 600 850
+          S 550 1000, 620 1150
+          C 690 1300, 770 1350, 800 1500
+          S 830 1700, 760 1850
+          C 690 2000, 620 2100, 650 2300
+          S 720 2500, 700 2650
+          C 680 2800, 640 2950, 680 3100
+          S 750 3300, 730 3450
+          C 710 3600, 680 3750, 720 3900
+          S 760 4100, 740 4250
+          C 720 4400, 710 4550, 720 4700
+          S 730 4900, 725 5050
+          C 720 5200, 718 5350, 720 5500
+          L 720 5800
+        "
+      />
+    </svg>
+  </div>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="hero">
+    <!-- Video background with canvas particle fallback -->
+    <div class="hero-video-bg" aria-hidden="true">
+      <video autoplay loop muted playsinline id="hero-video">
+        <source src="hero-bg.mp4" type="video/mp4">
+        <source src="hero-bg.webm" type="video/webm">
+      </video>
+      <canvas id="hero-particles"></canvas>
+    </div>
+    <h1 class="wordmark">AXEUM</h1>
+    <p class="hero-subtitle">Governed Orchestration</p>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ BLUE COLLAR ══════════ -->
+  <section class="section era-blue" id="era-blue">
+    <div class="section-inner reveal-children">
+      <p class="era-label">The Past</p>
+      <div class="collar-badge blue">Blue Collar</div>
+      <p class="quote">
+        Robots replaced muscle.<br>
+        The factory floor was never the same.
+      </p>
+      <p class="narrative">
+        The first wave of automation transformed physical labor. Industrial robots welded, assembled, and painted &mdash; tirelessly, precisely, without complaint. An entire class of work was redefined.
+      </p>
+      <p class="stat">1960s &mdash; Industrial Robotics</p>
+    </div>
+  </section>
+
+  <div class="timeline-connector blue-to-white">
+    <span class="connector-year">1980s</span>
+  </div>
+
+  <!-- ══════════ WHITE COLLAR ══════════ -->
+  <section class="section era-white" id="era-white">
+    <div class="section-inner reveal-children">
+      <p class="era-label">The Shift</p>
+      <div class="collar-badge white">White Collar</div>
+      <p class="quote">
+        Software replaced paper.<br>
+        Then it replaced the people<br>
+        who pushed the paper.
+      </p>
+      <p class="narrative">
+        Personal computers crept into every office. Then Windows, spreadsheets, and email transformed white-collar work the same way robots transformed the factory &mdash; automating calculation, communication, and coordination at scale.
+      </p>
+      <p class="stat">1980s&ndash;2010s &mdash; The Software Revolution</p>
+    </div>
+  </section>
+
+  <div class="timeline-connector white-to-grey">
+    <span class="connector-year">2010s</span>
+  </div>
+
+  <!-- ══════════ GREY COLLAR ══════════ -->
+  <section class="section era-grey" id="era-grey">
+    <div class="section-inner reveal-children">
+      <p class="era-label">The Present</p>
+      <div class="collar-badge grey">Grey Collar</div>
+      <p class="quote">
+        We automated everything.<br>
+        But nothing connects.
+      </p>
+      <p class="narrative">
+        Blue collar and white collar blurred into grey &mdash; workers trapped between systems that don't talk to each other. A hundred tools, a thousand logins, and no one accountable for the outcome. The result? $2.3 trillion lost to fragmentation every year.
+      </p>
+      <p class="stat">2010s&ndash;Present &mdash; The Fragmentation Era</p>
+    </div>
+  </section>
+
+  <div class="timeline-connector grey-to-copper">
+    <span class="connector-year">Now</span>
+  </div>
+
+  <!-- ══════════ COPPER COLLAR ══════════ -->
+  <section class="section era-copper" id="era-copper">
+    <div class="section-inner reveal-children">
+      <p class="era-label">The Future</p>
+      <div class="collar-badge copper">Copper Collar</div>
+      <p class="quote">
+        AI meets hardware.<br>
+        Hardware meets governance.<br>
+        Governance meets certainty.
+      </p>
+      <p class="narrative">
+        AI and AI-enabled hardware are exploding simultaneously &mdash; not just automating tasks, but demanding orchestration. The copper collar workforce doesn't do the work or manage the tools. They govern the outcomes. One accountable owner. One contract. One result.
+      </p>
+      <p class="stat">2025+ &mdash; The Orchestration Era</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ RESOLUTION ══════════ -->
+  <section class="section resolution" id="resolution">
+    <div class="section-inner reveal-children">
+      <p class="resolution-wordmark">Axeum</p>
+      <p class="resolution-tagline">Governed Orchestration</p>
+      <div class="resolution-line"></div>
+      <p class="resolution-quote">
+        The storm isn't ahead of orchestrators<br>
+        &mdash; it's behind them.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer reveal-children">
+    <div class="footer-contact">
+      <a href="mailto:hello@axeumai.com">hello@axeumai.com</a>
+    </div>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-dot">&middot;</span>
+      <a href="terms.html">Terms</a>
+    </div>
+    <p class="footer-copyright">&copy; 2026 Axeum Technologies</p>
+  </footer>
+
+  <!-- ══════════ SCRIPTS ══════════ -->
+  <script>
+    /* Intersection Observer — Scroll Reveals */
+    (function () {
+      var targets = document.querySelectorAll('.reveal-children');
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+      targets.forEach(function (el) { observer.observe(el); });
+    })();
+
+    /* Copper Thread — Scroll-Driven Draw */
+    (function () {
+      var path = document.querySelector('.copper-thread-path');
+      if (!path) return;
+
+      var pathLength = path.getTotalLength();
+      path.style.strokeDasharray = pathLength;
+      path.style.strokeDashoffset = pathLength;
+
+      function update() {
+        var scrollTop = window.scrollY;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var fraction = Math.min(scrollTop / docHeight, 1);
+        path.style.strokeDashoffset = pathLength - (pathLength * fraction);
+        requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    })();
+
+    /* Hide Scroll Indicator */
+    (function () {
+      var ind = document.querySelector('.scroll-indicator');
+      if (!ind) return;
+      var hidden = false;
+      window.addEventListener('scroll', function () {
+        if (!hidden && window.scrollY > 100) {
+          ind.style.transition = 'opacity 0.6s ease';
+          ind.style.opacity = '0';
+          hidden = true;
+        }
+      }, { passive: true });
+    })();
+
+    /* Hero Video / Canvas Particle Fallback */
+    (function () {
+      var video = document.getElementById('hero-video');
+      var canvas = document.getElementById('hero-particles');
+      if (!video || !canvas) return;
+
+      var videoLoaded = false;
+
+      // Try loading the video — if it fails or sources don't exist, show canvas particles
+      video.addEventListener('canplay', function () {
+        videoLoaded = true;
+        canvas.style.display = 'none';
+        video.style.display = 'block';
+      });
+
+      video.addEventListener('error', function () {
+        startParticles();
+      });
+
+      // If video hasn't loaded after 2s, assume no video file and start particles
+      setTimeout(function () {
+        if (!videoLoaded) {
+          video.style.display = 'none';
+          startParticles();
+        }
+      }, 2000);
+
+      // Hide video initially — let canplay reveal it
+      video.style.display = 'none';
+
+      function startParticles() {
+        canvas.style.display = 'block';
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var count = 80;
+        var dpr = window.devicePixelRatio || 1;
+
+        function resize() {
+          var rect = canvas.parentElement.getBoundingClientRect();
+          canvas.width = rect.width * dpr;
+          canvas.height = rect.height * dpr;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        resize();
+        window.addEventListener('resize', resize, { passive: true });
+
+        // Create particles
+        for (var i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * canvas.width / dpr,
+            y: Math.random() * canvas.height / dpr,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.15 - 0.1,
+            radius: Math.random() * 1.5 + 0.5,
+            opacity: Math.random() * 0.4 + 0.1,
+            hue: Math.random() > 0.7 ? 30 : 25 // warm copper tones
+          });
+        }
+
+        function draw() {
+          var w = canvas.width / dpr;
+          var h = canvas.height / dpr;
+          ctx.clearRect(0, 0, w, h);
+
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+
+            // Update position
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Wrap around
+            if (p.x < -10) p.x = w + 10;
+            if (p.x > w + 10) p.x = -10;
+            if (p.y < -10) p.y = h + 10;
+            if (p.y > h + 10) p.y = -10;
+
+            // Subtle shimmer
+            var shimmer = 0.5 + 0.5 * Math.sin(Date.now() * 0.001 + i * 0.7);
+
+            // Draw particle
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'hsla(' + p.hue + ', 55%, 65%, ' + (p.opacity * shimmer) + ')';
+            ctx.fill();
+
+            // Draw connections between nearby particles
+            for (var j = i + 1; j < particles.length; j++) {
+              var q = particles[j];
+              var dx = p.x - q.x;
+              var dy = p.y - q.y;
+              var dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 120) {
+                var lineOpacity = (1 - dist / 120) * 0.06;
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(q.x, q.y);
+                ctx.strokeStyle = 'rgba(212, 165, 116, ' + lineOpacity + ')';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+          }
+
+          requestAnimationFrame(draw);
+        }
+
+        draw();
+      }
+    })();
+  </script>
+</body>
+</html>
