@@ -367,6 +367,19 @@
       animation: fade-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
     }
 
+    .hero-tagline {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: clamp(0.75rem, 1.4vw, 0.95rem);
+      letter-spacing: 0.15em;
+      color: var(--stone);
+      margin-top: var(--space-2);
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fade-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s forwards;
+    }
+
     .scroll-indicator {
       position: absolute;
       bottom: var(--space-6);
@@ -796,6 +809,7 @@
     </div>
     <h1 class="wordmark">AXEUM</h1>
     <p class="hero-subtitle">Governed Orchestration</p>
+    <p class="hero-tagline">Fragmentation to Orchestration. Trust Discovered.</p>
     <div class="scroll-indicator">
       <span>Scroll</span>
       <div class="scroll-line"></div>
