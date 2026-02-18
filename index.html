@@ -157,7 +157,7 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--copper);
-      margin-bottom: var(--space-3);
+      margin-bottom: var(--space-1);
       position: relative;
       display: inline-block;
     }
@@ -180,7 +180,7 @@
        COLLAR BADGES
        ═══════════════════════════════════════════════ */
     .collar-badge {
-      display: inline-block;
+      display: block;
       font-family: var(--font-mono);
       font-size: 13px;
       font-weight: 500;
@@ -188,7 +188,8 @@
       text-transform: uppercase;
       padding: var(--space-1) var(--space-3);
       border: 1px solid;
-      margin-bottom: var(--space-5);
+      margin: var(--space-2) auto var(--space-6);
+      width: fit-content;
     }
 
     .collar-badge.blue {
@@ -729,7 +730,7 @@
 
       .timeline-connector .connector-year { display: none; }
 
-      .collar-badge { font-size: 11px; }
+      .collar-badge { font-size: 11px; margin: var(--space-1) auto var(--space-5); }
 
       .narrative { font-size: 0.95rem; }
     }
