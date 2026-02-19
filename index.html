@@ -86,29 +86,6 @@
     }
 
     /* ═══════════════════════════════════════════════
-       COPPER THREAD SVG
-       ═══════════════════════════════════════════════ */
-    .copper-thread-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .copper-thread-container svg { width: 100%; height: 100%; }
-
-    .copper-thread-path {
-      fill: none;
-      stroke: var(--copper);
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      filter: drop-shadow(0 0 6px rgba(212, 165, 116, 0.3));
-    }
-
-    /* ═══════════════════════════════════════════════
        SECTIONS
        ═══════════════════════════════════════════════ */
     .section {
@@ -792,8 +769,6 @@
 
       .resolution::before { width: 350px; height: 250px; }
 
-      .copper-thread-container { display: none; }
-
       .timeline-connector { height: var(--space-8); }
 
       .timeline-connector .connector-year { display: none; }
@@ -813,44 +788,6 @@
   </style>
 </head>
 <body>
-
-  <!-- ══════════ COPPER THREAD ══════════ -->
-  <div class="copper-thread-container" aria-hidden="true">
-    <svg viewBox="0 0 1440 7200" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="copper-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#5B7B9A" stop-opacity="0.3" />
-          <stop offset="15%" stop-color="#5B7B9A" stop-opacity="0.4" />
-          <stop offset="30%" stop-color="#A8A8A8" stop-opacity="0.4" />
-          <stop offset="50%" stop-color="#6B6B6B" stop-opacity="0.4" />
-          <stop offset="70%" stop-color="#B87333" stop-opacity="0.6" />
-          <stop offset="85%" stop-color="#D4A574" stop-opacity="0.8" />
-          <stop offset="100%" stop-color="#E8C9A0" stop-opacity="1" />
-        </linearGradient>
-      </defs>
-      <path
-        class="copper-thread-path"
-        stroke="url(#copper-grad)"
-        d="
-          M 720 500
-          C 720 600, 650 700, 600 850
-          S 550 1000, 620 1150
-          C 690 1300, 770 1350, 800 1500
-          S 830 1700, 760 1850
-          C 690 2000, 620 2100, 650 2300
-          S 720 2500, 700 2650
-          C 680 2800, 640 2950, 680 3100
-          S 750 3300, 730 3450
-          C 710 3600, 680 3750, 720 3900
-          S 760 4100, 740 4250
-          C 720 4400, 710 4550, 720 4700
-          S 730 4900, 725 5050
-          C 720 5200, 718 5350, 720 5500
-          L 720 5800
-        "
-      />
-    </svg>
-  </div>
 
   <!-- ══════════ HERO ══════════ -->
   <section class="hero" id="hero">
@@ -900,9 +837,9 @@
         In this Age of Iron, a new Blue Collar class emerged as humans partnered with machines that could lift, weld, and assemble with unblinking precision.
       </p>
       <dl class="stakeholder-grid">
-        <div><dt>Worker</dt><dd>Traded physical risk for mechanical reliability.</dd></div>
         <div><dt>Seller</dt><dd>Dealt in industrial capacity and capital equipment.</dd></div>
         <div><dt>Buyer</dt><dd>Stepped into a world of tangible, mass-produced certainty.</dd></div>
+        <div><dt>Worker</dt><dd>Traded physical risk for mechanical reliability.</dd></div>
       </dl>
       <p class="stat">Iron defined the age: heavy, industrial, and visible. The skies seemed clear.</p>
     </div>
@@ -927,9 +864,9 @@
         Work shifted from physical assemblies to digital workflows. We moved from welding steel to orchestrating data.
       </p>
       <dl class="stakeholder-grid">
-        <div><dt>Worker</dt><dd>Migrated from the assembly line to the interface, becoming the operator of digital processes.</dd></div>
         <div><dt>Seller</dt><dd>Shifted from hardware to &ldquo;solutions,&rdquo; scaling infinitely through code.</dd></div>
         <div><dt>Buyer</dt><dd>Traded machines and perpetual licenses for logins and subscriptions.</dd></div>
+        <div><dt>Worker</dt><dd>Migrated from the assembly line to the interface, becoming the operator of digital processes.</dd></div>
       </dl>
       <p class="stat">As information was liberated and abstracted into software, the seeds of complexity were planted. Each new system quietly added more invisible logic. The clouds were gathering.</p>
     </div>
@@ -954,9 +891,9 @@
         This is a purgatory state. The muscle era, the logic era, and the intelligence era are all running, but no one holds the baton.
       </p>
       <dl class="stakeholder-grid">
-        <div><dt>Worker</dt><dd>Spends their days moving context between systems that refuse to speak to one another.</dd></div>
         <div><dt>Seller</dt><dd>Offers features instead of fixes, spreading accountability across dashboards, configurations, and roadmaps.</dd></div>
         <div><dt>Buyer</dt><dd>Inherits the friction, paying for overlapping tools while losing value in the gaps between them.</dd></div>
+        <div><dt>Worker</dt><dd>Spends their days moving context between systems that refuse to speak to one another.</dd></div>
       </dl>
       <p class="stat">We are drowning in &ldquo;solutions&rdquo; that do not coordinate. This is the Storm: a high-cost, low-accountability tempest of fragmentation.</p>
     </div>
@@ -981,9 +918,9 @@
         Copper has been quietly present in every chapter of this race. In the Age of Iron, it wired the power that drove the machines. In the Age of Logic, it carried the signals that linked our computers and networks. In the Age of Intelligence, it routes the data that feeds our models and sensors. Now, copper becomes more than a material; it becomes a metaphor for a new collar. A Copper Collar worker is not a mechanic, a clerk, or an operator. They are an orchestrator.
       </p>
       <dl class="stakeholder-grid">
-        <div><dt>Worker</dt><dd>Ascends into the Orchestrator &mdash; defining mandates instead of micromanaging tools, commanding outcomes instead of chasing tickets.</dd></div>
         <div><dt>Seller</dt><dd>Evolves from shipping products to providing governance &mdash; owning clear, measurable results end to end.</dd></div>
         <div><dt>Buyer</dt><dd>Regains control through one contract, one accountable owner, and one orchestrated outcome.</dd></div>
+        <div><dt>Worker</dt><dd>Ascends into the Orchestrator &mdash; defining mandates instead of micromanaging tools, commanding outcomes instead of chasing tickets.</dd></div>
       </dl>
       <p class="stat">Hardware, digital systems, and humans no longer compete in separate lanes. They are coordinated as one stack, under one layer of governance, in service of one result.</p>
     </div>
@@ -1034,25 +971,6 @@
         { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
       );
       targets.forEach(function (el) { observer.observe(el); });
-    })();
-
-    /* Copper Thread — Scroll-Driven Draw */
-    (function () {
-      var path = document.querySelector('.copper-thread-path');
-      if (!path) return;
-
-      var pathLength = path.getTotalLength();
-      path.style.strokeDasharray = pathLength;
-      path.style.strokeDashoffset = pathLength;
-
-      function update() {
-        var scrollTop = window.scrollY;
-        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        var fraction = Math.min(scrollTop / docHeight, 1);
-        path.style.strokeDashoffset = pathLength - (pathLength * fraction);
-        requestAnimationFrame(update);
-      }
-      requestAnimationFrame(update);
     })();
 
     /* Hide Scroll Indicator */
