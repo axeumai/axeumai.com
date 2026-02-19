@@ -148,6 +148,61 @@
     }
 
     /* ═══════════════════════════════════════════════
+       PROLOGUE SECTION
+       ═══════════════════════════════════════════════ */
+    .prologue {
+      background: var(--obsidian);
+      position: relative;
+    }
+
+    .prologue .narrative {
+      max-width: 700px;
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+    }
+
+    .prologue .quote {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+    }
+
+    /* ═══════════════════════════════════════════════
+       STAKEHOLDER GRID
+       ═══════════════════════════════════════════════ */
+    .stakeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+      margin: var(--space-5) auto;
+      max-width: 700px;
+      text-align: left;
+    }
+
+    .stakeholder-grid dt {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: var(--space-1);
+    }
+
+    .stakeholder-grid dd {
+      font-family: var(--font-body);
+      font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .stakeholder-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════
        ERA LABELS
        ═══════════════════════════════════════════════ */
     .era-label {
@@ -816,6 +871,18 @@
     </div>
   </section>
 
+  <!-- ══════════ PROLOGUE ══════════ -->
+  <section class="section prologue" id="prologue">
+    <div class="section-inner reveal-children">
+      <p class="quote">
+        We are living inside a storm of automation.
+      </p>
+      <p class="narrative">
+        Systems built to assist us have become the source of the greatest disruption in modern history. This is not a failure of hardware or software; it is a crisis of orchestration. To understand the cure, we have to trace the race that brought us here: the mechanization of muscle, the automation of logic, the emergence of machine intelligence, and their convergence into a single class.
+      </p>
+    </div>
+  </section>
+
   <div class="divider"></div>
 
   <!-- ══════════ BLUE COLLAR ══════════ -->
@@ -824,13 +891,20 @@
       <p class="era-label">The Past</p>
       <div class="collar-badge blue">Blue Collar</div>
       <p class="quote">
-        Robots replaced muscle.<br>
-        The factory floor was never the same.
+        The Age of Iron
       </p>
       <p class="narrative">
-        The first wave of automation transformed physical labor. Industrial robots welded, assembled, and painted &mdash; tirelessly, precisely, without complaint. An entire class of work was redefined.
+        The industrial age began when steam and steel made it possible to scale human muscle beyond its biological limits. Factories, railroads, and engines defined a world where physical force could be deployed at planetary scale. In 1954, George Devol patented a programmable manipulator that would become Unimation&rsquo;s Unimate, widely recognized as the first industrial robot. By 1961, a Unimate stood on the line at General Motors, handling molten metal no human could safely touch.
       </p>
-      <p class="stat">1960s &mdash; Industrial Robotics</p>
+      <p class="narrative">
+        In this Age of Iron, a new Blue Collar class emerged as humans partnered with machines that could lift, weld, and assemble with unblinking precision.
+      </p>
+      <dl class="stakeholder-grid">
+        <div><dt>Worker</dt><dd>Traded physical risk for mechanical reliability.</dd></div>
+        <div><dt>Seller</dt><dd>Dealt in industrial capacity and capital equipment.</dd></div>
+        <div><dt>Buyer</dt><dd>Stepped into a world of tangible, mass-produced certainty.</dd></div>
+      </dl>
+      <p class="stat">Iron defined the age: heavy, industrial, and visible. The skies seemed clear.</p>
     </div>
   </section>
 
@@ -844,14 +918,20 @@
       <p class="era-label">The Shift</p>
       <div class="collar-badge white">White Collar</div>
       <p class="quote">
-        Software replaced paper.<br>
-        Then it replaced the people<br>
-        who pushed the paper.
+        The Age of Logic
       </p>
       <p class="narrative">
-        Personal computers crept into every office. Then Windows, spreadsheets, and email transformed white-collar work the same way robots transformed the factory &mdash; automating calculation, communication, and coordination at scale.
+        While robots mastered the factory floor, a second race unfolded in parallel: the race to automate thinking. In the 1940s and 1950s, Alan Turing formalized concepts of machine computation and raised the now-famous question of whether machines could think, laying foundational ideas for machine intelligence. Decades later, around 1980, expert systems such as R1/XCON proved that software could handle complex configuration tasks at scale, saving large organizations many millions of dollars and demonstrating that logic itself could be encoded and automated.
       </p>
-      <p class="stat">1980s&ndash;2010s &mdash; The Software Revolution</p>
+      <p class="narrative">
+        Work shifted from physical assemblies to digital workflows. We moved from welding steel to orchestrating data.
+      </p>
+      <dl class="stakeholder-grid">
+        <div><dt>Worker</dt><dd>Migrated from the assembly line to the interface, becoming the operator of digital processes.</dd></div>
+        <div><dt>Seller</dt><dd>Shifted from hardware to &ldquo;solutions,&rdquo; scaling infinitely through code.</dd></div>
+        <div><dt>Buyer</dt><dd>Traded machines and perpetual licenses for logins and subscriptions.</dd></div>
+      </dl>
+      <p class="stat">As information was liberated and abstracted into software, the seeds of complexity were planted. Each new system quietly added more invisible logic. The clouds were gathering.</p>
     </div>
   </section>
 
@@ -865,13 +945,20 @@
       <p class="era-label">The Present</p>
       <div class="collar-badge grey">Grey Collar</div>
       <p class="quote">
-        We automated everything.<br>
-        But nothing connects.
+        The Storm
       </p>
       <p class="narrative">
-        Blue collar and white collar blurred into grey &mdash; workers trapped between systems that don't talk to each other. A hundred tools, a thousand logins, and no one accountable for the outcome. The result? $2.3 trillion lost to fragmentation every year.
+        Today, the race between hardware, software, and intelligence has produced a new kind of worker: the Grey Collar. Generative AI can draft, code, summarize, and analyze. Robotic systems can see, grasp, and navigate. Yet the lived experience of work feels more chaotic than ever. We have reached the peak of the &ldquo;white-collar robot,&rdquo; but not the peak of relief. Instead of being freed, the Worker has become the manual glue between a thousand disconnected tools, workflows, and APIs.
       </p>
-      <p class="stat">2010s&ndash;Present &mdash; The Fragmentation Era</p>
+      <p class="narrative">
+        This is a purgatory state. The muscle era, the logic era, and the intelligence era are all running, but no one holds the baton.
+      </p>
+      <dl class="stakeholder-grid">
+        <div><dt>Worker</dt><dd>Spends their days moving context between systems that refuse to speak to one another.</dd></div>
+        <div><dt>Seller</dt><dd>Offers features instead of fixes, spreading accountability across dashboards, configurations, and roadmaps.</dd></div>
+        <div><dt>Buyer</dt><dd>Inherits the friction, paying for overlapping tools while losing value in the gaps between them.</dd></div>
+      </dl>
+      <p class="stat">We are drowning in &ldquo;solutions&rdquo; that do not coordinate. This is the Storm: a high-cost, low-accountability tempest of fragmentation.</p>
     </div>
   </section>
 
@@ -885,14 +972,20 @@
       <p class="era-label">The Future</p>
       <div class="collar-badge copper">Copper Collar</div>
       <p class="quote">
-        AI meets hardware.<br>
-        Hardware meets governance.<br>
-        Governance meets certainty.
+        The Convergence
       </p>
       <p class="narrative">
-        AI and AI-enabled hardware are exploding simultaneously &mdash; not just automating tasks, but demanding orchestration. The copper collar workforce doesn't do the work or manage the tools. They govern the outcomes. One accountable owner. One contract. One result.
+        Beyond the storm lies convergence. The next era is not defined by a single new tool, but by a new class: the Copper Collar. It is the moment when high-conductivity AI, autonomous hardware, and human judgment are bound together by a single architecture of governance.
       </p>
-      <p class="stat">2025+ &mdash; The Orchestration Era</p>
+      <p class="narrative">
+        Copper has been quietly present in every chapter of this race. In the Age of Iron, it wired the power that drove the machines. In the Age of Logic, it carried the signals that linked our computers and networks. In the Age of Intelligence, it routes the data that feeds our models and sensors. Now, copper becomes more than a material; it becomes a metaphor for a new collar. A Copper Collar worker is not a mechanic, a clerk, or an operator. They are an orchestrator.
+      </p>
+      <dl class="stakeholder-grid">
+        <div><dt>Worker</dt><dd>Ascends into the Orchestrator &mdash; defining mandates instead of micromanaging tools, commanding outcomes instead of chasing tickets.</dd></div>
+        <div><dt>Seller</dt><dd>Evolves from shipping products to providing governance &mdash; owning clear, measurable results end to end.</dd></div>
+        <div><dt>Buyer</dt><dd>Regains control through one contract, one accountable owner, and one orchestrated outcome.</dd></div>
+      </dl>
+      <p class="stat">Hardware, digital systems, and humans no longer compete in separate lanes. They are coordinated as one stack, under one layer of governance, in service of one result.</p>
     </div>
   </section>
 
@@ -905,8 +998,9 @@
       <p class="resolution-tagline">Governed Orchestration</p>
       <div class="resolution-line"></div>
       <p class="resolution-quote">
-        The storm isn't ahead of orchestrators<br>
-        &mdash; it's behind them.
+        The race between iron, logic, and intelligence does not end with a single winner.<br>
+        It ends with orchestration.<br>
+        And the collar that wears it is copper.
       </p>
     </div>
   </section>
