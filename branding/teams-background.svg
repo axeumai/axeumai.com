@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <radialGradient id="bg-glow" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#2D2D2D"/>
+      <stop offset="100%" stop-color="#1A1A1A"/>
+    </radialGradient>
+    <linearGradient id="copper-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A574" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#D4A574" stop-opacity="0.12"/>
+      <stop offset="70%" stop-color="#D4A574" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#D4A574" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1920" height="1080" fill="url(#bg-glow)"/>
+
+  <!-- Subtle horizontal copper lines -->
+  <line x1="0" y1="200" x2="1920" y2="200" stroke="#D4A574" stroke-width="0.5" opacity="0.04"/>
+  <line x1="0" y1="400" x2="1920" y2="400" stroke="#D4A574" stroke-width="0.5" opacity="0.04"/>
+  <line x1="0" y1="600" x2="1920" y2="600" stroke="#D4A574" stroke-width="0.5" opacity="0.04"/>
+  <line x1="0" y1="800" x2="1920" y2="800" stroke="#D4A574" stroke-width="0.5" opacity="0.04"/>
+
+  <!-- Subtle vertical copper lines -->
+  <line x1="480" y1="0" x2="480" y2="1080" stroke="#D4A574" stroke-width="0.5" opacity="0.03"/>
+  <line x1="960" y1="0" x2="960" y2="1080" stroke="#D4A574" stroke-width="0.5" opacity="0.03"/>
+  <line x1="1440" y1="0" x2="1440" y2="1080" stroke="#D4A574" stroke-width="0.5" opacity="0.03"/>
+
+  <!-- Copper accent line lower third -->
+  <rect x="600" y="780" width="720" height="1.5" rx="0.75" fill="url(#copper-fade)"/>
+
+  <!-- Wordmark bottom-right -->
+  <text x="1860" y="1040" font-family="Georgia, 'Times New Roman', serif" font-weight="600" font-size="36" fill="#D4A574" text-anchor="end" letter-spacing="6" opacity="0.7">AXEUM</text>
+  <rect x="1720" y="1050" width="140" height="2" rx="1" fill="#D4A574" opacity="0.5"/>
+</svg>

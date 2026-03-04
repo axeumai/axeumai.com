@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Axeum Entra Branding — PNG Export</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1A1A1A; color: #FAF8F5; font-family: 'Inter', sans-serif; padding: 48px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 8px; }
+    .subtitle { color: #D4A574; font-size: 0.9rem; margin-bottom: 48px; }
+    .asset { margin-bottom: 48px; border: 1px solid rgba(212,165,116,0.15); border-radius: 8px; padding: 24px; }
+    .asset h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #D4A574; margin-bottom: 4px; }
+    .asset .specs { font-size: 11px; color: #888; margin-bottom: 16px; font-family: monospace; }
+    .preview { display: flex; gap: 24px; align-items: center; margin-bottom: 16px; }
+    .preview-light { background: #fff; border: 1px solid #ddd; display: inline-flex; align-items: center; justify-content: center; padding: 12px; border-radius: 4px; }
+    .preview-dark { background: #1A1A1A; border: 1px solid #333; display: inline-flex; align-items: center; justify-content: center; padding: 12px; border-radius: 4px; }
+    canvas { display: block; }
+    button {
+      background: #D4A574; color: #1A1A1A; border: none; padding: 10px 20px;
+      font-weight: 600; font-size: 13px; border-radius: 4px; cursor: pointer;
+      letter-spacing: 0.05em; transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+    .buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .instructions { background: #2D2D2D; border-radius: 8px; padding: 24px; margin-top: 48px; }
+    .instructions h2 { font-family: 'Cormorant Garamond', serif; color: #D4A574; margin-bottom: 12px; }
+    .instructions ol { padding-left: 20px; line-height: 1.8; color: #ccc; font-size: 0.9rem; }
+    .instructions code { background: #3D3D3D; padding: 2px 6px; border-radius: 3px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<h1>Axeum Entra Branding Assets</h1>
+<p class="subtitle">Click each button to download the PNG at exact Entra specs. Then upload at entra.microsoft.com.</p>
+
+<!-- Banner Logo (light background) -->
+<div class="asset">
+  <h2>Banner Logo (Light)</h2>
+  <p class="specs">280 x 60px — transparent PNG — for sign-in page header (white background)</p>
+  <div class="preview">
+    <div class="preview-light"><canvas id="banner-light" width="280" height="60"></canvas></div>
+  </div>
+  <div class="buttons">
+    <button onclick="download('banner-light', 'axeum-banner-logo.png')">Download PNG</button>
+  </div>
+</div>
+
+<!-- Banner Logo (dark background) -->
+<div class="asset">
+  <h2>Banner Logo (Dark)</h2>
+  <p class="specs">280 x 60px — transparent PNG — for dark theme sign-in page</p>
+  <div class="preview">
+    <div class="preview-dark"><canvas id="banner-dark" width="280" height="60"></canvas></div>
+  </div>
+  <div class="buttons">
+    <button onclick="download('banner-dark', 'axeum-banner-logo-dark.png')">Download PNG</button>
+  </div>
+</div>
+
+<!-- Square Logo (light background) -->
+<div class="asset">
+  <h2>Square Logo (Light)</h2>
+  <p class="specs">240 x 240px — transparent PNG — app tile on white/light backgrounds</p>
+  <div class="preview">
+    <div class="preview-light"><canvas id="square-light" width="240" height="240"></canvas></div>
+  </div>
+  <div class="buttons">
+    <button onclick="download('square-light', 'axeum-square-logo.png')">Download PNG</button>
+  </div>
+</div>
+
+<!-- Square Logo (dark background) -->
+<div class="asset">
+  <h2>Square Logo (Dark)</h2>
+  <p class="specs">240 x 240px — transparent PNG — app tile on dark backgrounds</p>
+  <div class="preview">
+    <div class="preview-dark"><canvas id="square-dark" width="240" height="240"></canvas></div>
+  </div>
+  <div class="buttons">
+    <button onclick="download('square-dark', 'axeum-square-logo-dark.png')">Download PNG</button>
+  </div>
+</div>
+
+<!-- Favicon -->
+<div class="asset">
+  <h2>Favicon</h2>
+  <p class="specs">48 x 48px — transparent PNG</p>
+  <div class="preview">
+    <div class="preview-light"><canvas id="favicon-light" width="48" height="48"></canvas></div>
+    <div class="preview-dark"><canvas id="favicon-dark" width="48" height="48"></canvas></div>
+  </div>
+  <div class="buttons">
+    <button onclick="download('favicon-light', 'axeum-favicon.png')">Download PNG (Light)</button>
+    <button onclick="download('favicon-dark', 'axeum-favicon-dark.png')">Download PNG (Dark)</button>
+  </div>
+</div>
+
+<!-- Background -->
+<div class="asset">
+  <h2>Sign-in Background</h2>
+  <p class="specs">1920 x 1080px — PNG — obsidian with subtle copper accent</p>
+  <div class="preview">
+    <div style="border: 1px solid #333; border-radius: 4px; overflow: hidden;">
+      <canvas id="background" width="480" height="270" style="width: 480px; height: 270px;"></canvas>
+    </div>
+  </div>
+  <div class="buttons">
+    <button onclick="downloadBg()">Download JPG (1920x1080)</button>
+  </div>
+</div>
+
+<!-- Teams Virtual Background -->
+<div class="asset">
+  <h2>Teams Virtual Background</h2>
+  <p class="specs">1920 x 1080px — JPG — branded background for video calls</p>
+  <div class="preview">
+    <div style="border: 1px solid #333; border-radius: 4px; overflow: hidden;">
+      <canvas id="teams-bg" width="480" height="270" style="width: 480px; height: 270px;"></canvas>
+    </div>
+  </div>
+  <div class="buttons">
+    <button onclick="downloadTeamsBg()">Download JPG (1920x1080)</button>
+  </div>
+</div>
+
+<!-- LinkedIn Personal Profile Banner -->
+<div class="asset">
+  <h2>LinkedIn Personal Profile Banner</h2>
+  <p class="specs">1584 x 396px — JPG — personal LinkedIn cover image</p>
+  <div class="preview">
+    <div style="border: 1px solid #333; border-radius: 4px; overflow: hidden;">
+      <canvas id="li-personal" width="528" height="132" style="width: 528px; height: 132px;"></canvas>
+    </div>
+  </div>
+  <div class="buttons">
+    <button onclick="downloadLiPersonal()">Download JPG (1584x396)</button>
+  </div>
+</div>
+
+<!-- LinkedIn Company Page Banner -->
+<div class="asset">
+  <h2>LinkedIn Company Page Banner</h2>
+  <p class="specs">1128 x 191px — JPG — company page cover image</p>
+  <div class="preview">
+    <div style="border: 1px solid #333; border-radius: 4px; overflow: hidden;">
+      <canvas id="li-company" width="564" height="96" style="width: 564px; height: 96px;"></canvas>
+    </div>
+  </div>
+  <div class="buttons">
+    <button onclick="downloadLiCompany()">Download JPG (1128x191)</button>
+  </div>
+</div>
+
+<!-- Instructions -->
+<div class="instructions">
+  <h2>Upload Instructions</h2>
+  <ol>
+    <li>Go to <code>entra.microsoft.com</code> and sign in</li>
+    <li>Navigate to <strong>User experiences</strong> &rarr; <strong>Company branding</strong></li>
+    <li>Click <strong>Configure</strong> (or <strong>Edit</strong> if already configured)</li>
+    <li>Under <strong>Sign-in form</strong>:
+      <ul style="list-style: disc; padding-left: 20px; margin-top: 4px;">
+        <li><strong>Banner logo</strong> &rarr; upload <code>axeum-banner-logo.png</code></li>
+        <li><strong>Square logo (light)</strong> &rarr; upload <code>axeum-square-logo.png</code></li>
+        <li><strong>Square logo (dark)</strong> &rarr; upload <code>axeum-square-logo-dark.png</code></li>
+        <li><strong>Background image</strong> &rarr; upload <code>axeum-background.png</code></li>
+        <li><strong>Favicon</strong> &rarr; upload <code>axeum-favicon.png</code></li>
+      </ul>
+    </li>
+    <li>Under <strong>Sign-in page text</strong>, enter: <code>Axeum Technologies — Orchestration Governance</code></li>
+    <li>Set <strong>Page background color</strong> to <code>#1A1A1A</code></li>
+    <li>Click <strong>Save</strong></li>
+  </ol>
+</div>
+
+<script>
+function loadFont() {
+  return document.fonts.load('600 32px "Cormorant Garamond"').then(() =>
+    document.fonts.load('400 160px "Cormorant Garamond"')
+  );
+}
+
+function drawBanner(canvasId, textColor) {
+  const c = document.getElementById(canvasId);
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, 280, 60);
+  ctx.font = '600 32px "Cormorant Garamond", Georgia, serif';
+  ctx.fillStyle = textColor;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = '6px';
+  ctx.fillText('AXEUM', 140, 28);
+  // Copper underline
+  ctx.fillStyle = '#D4A574';
+  roundRect(ctx, 85, 44, 110, 2.5, 1);
+}
+
+function drawSquare(canvasId, textColor) {
+  const c = document.getElementById(canvasId);
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, 240, 240);
+  ctx.font = '400 160px "Cormorant Garamond", Georgia, serif';
+  ctx.fillStyle = textColor;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('A', 120, 115);
+  // Copper underline
+  ctx.fillStyle = '#D4A574';
+  roundRect(ctx, 60, 175, 120, 4, 1.5);
+}
+
+function drawFavicon(canvasId, textColor) {
+  const c = document.getElementById(canvasId);
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, 48, 48);
+  ctx.font = '400 38px "Cormorant Garamond", Georgia, serif';
+  ctx.fillStyle = textColor;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('A', 24, 22);
+  // Copper underline
+  ctx.fillStyle = '#D4A574';
+  roundRect(ctx, 8, 38, 28, 3, 0.75);
+}
+
+function drawBackground() {
+  // Draw at full 1920x1080 in an offscreen canvas
+  const full = document.createElement('canvas');
+  full.width = 1920; full.height = 1080;
+  const ctx = full.getContext('2d');
+
+  // Radial gradient background
+  const grad = ctx.createRadialGradient(960, 486, 0, 960, 486, 1152);
+  grad.addColorStop(0, '#2D2D2D');
+  grad.addColorStop(1, '#1A1A1A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1920, 1080);
+
+  // Subtle copper line
+  ctx.strokeStyle = 'rgba(212, 165, 116, 0.15)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(760, 580);
+  ctx.lineTo(1160, 580);
+  ctx.stroke();
+
+  // Draw preview (scaled down)
+  const preview = document.getElementById('background');
+  const pctx = preview.getContext('2d');
+  pctx.drawImage(full, 0, 0, 480, 270);
+
+  // Store full canvas for download
+  window._bgCanvas = full;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function download(canvasId, filename) {
+  const c = document.getElementById(canvasId);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = c.toDataURL('image/png');
+  link.click();
+}
+
+function downloadBg() {
+  const link = document.createElement('a');
+  link.download = 'axeum-background.jpg';
+  link.href = window._bgCanvas.toDataURL('image/jpeg', 0.85);
+  link.click();
+}
+
+function drawTeamsBg() {
+  const full = document.createElement('canvas');
+  full.width = 1920; full.height = 1080;
+  const ctx = full.getContext('2d');
+
+  // Radial gradient background
+  const grad = ctx.createRadialGradient(960, 432, 0, 960, 432, 1344);
+  grad.addColorStop(0, '#2D2D2D');
+  grad.addColorStop(1, '#1A1A1A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1920, 1080);
+
+  // Subtle grid lines (horizontal)
+  ctx.strokeStyle = 'rgba(212, 165, 116, 0.04)';
+  ctx.lineWidth = 0.5;
+  [200, 400, 600, 800].forEach(y => {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1920, y); ctx.stroke();
+  });
+
+  // Subtle grid lines (vertical)
+  ctx.strokeStyle = 'rgba(212, 165, 116, 0.03)';
+  [480, 960, 1440].forEach(x => {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1080); ctx.stroke();
+  });
+
+  // Copper accent line lower third
+  const lineGrad = ctx.createLinearGradient(600, 0, 1320, 0);
+  lineGrad.addColorStop(0, 'rgba(212, 165, 116, 0)');
+  lineGrad.addColorStop(0.3, 'rgba(212, 165, 116, 0.12)');
+  lineGrad.addColorStop(0.7, 'rgba(212, 165, 116, 0.12)');
+  lineGrad.addColorStop(1, 'rgba(212, 165, 116, 0)');
+  ctx.fillStyle = lineGrad;
+  ctx.fillRect(600, 780, 720, 1.5);
+
+  // Wordmark bottom-right
+  ctx.font = '600 36px "Cormorant Garamond", Georgia, serif';
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.7)';
+  ctx.textAlign = 'end';
+  ctx.letterSpacing = '6px';
+  ctx.fillText('AXEUM', 1860, 1040);
+
+  // Copper underline under wordmark
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.5)';
+  ctx.fillRect(1720, 1050, 140, 2);
+
+  // Preview
+  const preview = document.getElementById('teams-bg');
+  const pctx = preview.getContext('2d');
+  pctx.drawImage(full, 0, 0, 480, 270);
+
+  window._teamsBgCanvas = full;
+}
+
+function downloadTeamsBg() {
+  const link = document.createElement('a');
+  link.download = 'axeum-teams-background.jpg';
+  link.href = window._teamsBgCanvas.toDataURL('image/jpeg', 0.9);
+  link.click();
+}
+
+function drawLiPersonal() {
+  const full = document.createElement('canvas');
+  full.width = 1584; full.height = 396;
+  const ctx = full.getContext('2d');
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, 1584, 0);
+  grad.addColorStop(0, '#1A1A1A');
+  grad.addColorStop(0.5, '#252525');
+  grad.addColorStop(1, '#1A1A1A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1584, 396);
+
+  // Subtle horizontal copper lines
+  ctx.strokeStyle = 'rgba(212, 165, 116, 0.06)';
+  ctx.lineWidth = 0.5;
+  [132, 264].forEach(y => {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1584, y); ctx.stroke();
+  });
+
+  // Main copper accent line
+  const lineGrad = ctx.createLinearGradient(200, 0, 1384, 0);
+  lineGrad.addColorStop(0, 'rgba(212, 165, 116, 0)');
+  lineGrad.addColorStop(0.2, 'rgba(212, 165, 116, 0.25)');
+  lineGrad.addColorStop(0.8, 'rgba(212, 165, 116, 0.25)');
+  lineGrad.addColorStop(1, 'rgba(212, 165, 116, 0)');
+  ctx.fillStyle = lineGrad;
+  ctx.fillRect(200, 245, 1184, 2);
+
+  // AXEUM wordmark - right side (avoiding left where profile pic sits)
+  ctx.font = '600 80px "Cormorant Garamond", Georgia, serif';
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.85)';
+  ctx.textAlign = 'end';
+  ctx.letterSpacing = '12px';
+  ctx.fillText('AXEUM', 1510, 195);
+
+  // Copper underline under wordmark
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.5)';
+  ctx.fillRect(1220, 210, 290, 3);
+
+  // Tagline
+  ctx.font = '300 22px "Inter", "Helvetica Neue", sans-serif';
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.55)';
+  ctx.textAlign = 'end';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('GOVERNED ORCHESTRATION', 1510, 248);
+
+  // Preview
+  const preview = document.getElementById('li-personal');
+  const pctx = preview.getContext('2d');
+  pctx.drawImage(full, 0, 0, 528, 132);
+
+  window._liPersonalCanvas = full;
+}
+
+function downloadLiPersonal() {
+  const link = document.createElement('a');
+  link.download = 'axeum-linkedin-personal.jpg';
+  link.href = window._liPersonalCanvas.toDataURL('image/jpeg', 0.92);
+  link.click();
+}
+
+function drawLiCompany() {
+  const full = document.createElement('canvas');
+  full.width = 1128; full.height = 191;
+  const ctx = full.getContext('2d');
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, 1128, 0);
+  grad.addColorStop(0, '#1A1A1A');
+  grad.addColorStop(0.5, '#232323');
+  grad.addColorStop(1, '#1A1A1A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1128, 191);
+
+  // Copper accent line
+  const lineGrad = ctx.createLinearGradient(100, 0, 1028, 0);
+  lineGrad.addColorStop(0, 'rgba(212, 165, 116, 0)');
+  lineGrad.addColorStop(0.2, 'rgba(212, 165, 116, 0.2)');
+  lineGrad.addColorStop(0.8, 'rgba(212, 165, 116, 0.2)');
+  lineGrad.addColorStop(1, 'rgba(212, 165, 116, 0)');
+  ctx.fillStyle = lineGrad;
+  ctx.fillRect(100, 125, 928, 1.5);
+
+  // AXEUM wordmark - centered
+  ctx.font = '600 58px "Cormorant Garamond", Georgia, serif';
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.85)';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '10px';
+  ctx.fillText('AXEUM', 564, 85);
+
+  // Copper underline
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.45)';
+  ctx.fillRect(450, 95, 228, 2.5);
+
+  // Tagline
+  ctx.font = '300 16px "Inter", "Helvetica Neue", sans-serif';
+  ctx.fillStyle = 'rgba(212, 165, 116, 0.5)';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '3px';
+  ctx.fillText('GOVERNED ORCHESTRATION', 564, 122);
+
+  // Preview
+  const preview = document.getElementById('li-company');
+  const pctx = preview.getContext('2d');
+  pctx.drawImage(full, 0, 0, 564, 96);
+
+  window._liCompanyCanvas = full;
+}
+
+function downloadLiCompany() {
+  const link = document.createElement('a');
+  link.download = 'axeum-linkedin-company.jpg';
+  link.href = window._liCompanyCanvas.toDataURL('image/jpeg', 0.92);
+  link.click();
+}
+
+// Render all after fonts load
+loadFont().then(() => {
+  drawBanner('banner-light', '#1A1A1A');
+  drawBanner('banner-dark', '#FAF8F5');
+  drawSquare('square-light', '#1A1A1A');
+  drawSquare('square-dark', '#FAF8F5');
+  drawFavicon('favicon-light', '#1A1A1A');
+  drawFavicon('favicon-dark', '#FAF8F5');
+  drawBackground();
+  drawTeamsBg();
+  drawLiPersonal();
+  drawLiCompany();
+}).catch(() => {
+  // Fallback: draw anyway with system fonts
+  drawBanner('banner-light', '#1A1A1A');
+  drawBanner('banner-dark', '#FAF8F5');
+  drawSquare('square-light', '#1A1A1A');
+  drawSquare('square-dark', '#FAF8F5');
+  drawFavicon('favicon-light', '#1A1A1A');
+  drawFavicon('favicon-dark', '#FAF8F5');
+  drawBackground();
+  drawTeamsBg();
+  drawLiPersonal();
+  drawLiCompany();
+});
+</script>
+
+</body>
+</html>
