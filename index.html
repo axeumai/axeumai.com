@@ -660,6 +660,138 @@
     }
 
     /* ═══════════════════════════════════════════════
+       SMS OPT-IN  (A2P 10DLC consent — carrier compliance)
+       ═══════════════════════════════════════════════ */
+    .optin {
+      background: var(--obsidian);
+      padding: var(--space-10) var(--space-4) var(--space-8);
+      display: flex;
+      justify-content: center;
+    }
+
+    .optin-card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--graphite);
+      border: 1px solid rgba(212, 165, 116, 0.18);
+      border-radius: 10px;
+      padding: var(--space-6);
+    }
+
+    .optin-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: var(--space-2);
+    }
+
+    .optin-card h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--ivory);
+      line-height: 1.2;
+      margin-bottom: var(--space-1);
+    }
+
+    .optin-card p.optin-sub {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--stone);
+      opacity: 0.75;
+      margin-bottom: var(--space-4);
+    }
+
+    .optin-field { margin-bottom: var(--space-3); }
+
+    .optin-field label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      opacity: 0.7;
+      margin-bottom: var(--space-1);
+    }
+
+    .optin-field input[type="email"],
+    .optin-field input[type="tel"] {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--obsidian);
+      border: 1px solid rgba(229, 226, 221, 0.18);
+      border-radius: 6px;
+      color: var(--ivory);
+      font-family: var(--font-body);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .optin-field input::placeholder { color: var(--stone); opacity: 0.35; }
+    .optin-field input:focus { border-color: var(--copper); }
+
+    .optin-consent {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: var(--space-3);
+    }
+    .optin-consent input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--copper);
+      flex-shrink: 0;
+    }
+    .optin-consent label {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--stone);
+      opacity: 0.85;
+    }
+    .optin-consent label strong { color: var(--ivory); opacity: 1; font-weight: 600; }
+    .optin-consent a { color: var(--copper); text-decoration: none; }
+    .optin-consent a:hover { text-decoration: underline; }
+
+    .optin-submit {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      background: var(--copper);
+      border: none;
+      border-radius: 6px;
+      padding: 12px 26px;
+      cursor: pointer;
+      transition: background 0.3s ease, opacity 0.3s ease;
+    }
+    .optin-submit:hover { background: var(--copper-polished); }
+    .optin-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .optin-note {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      line-height: 1.6;
+      color: var(--stone);
+      opacity: 0.45;
+      margin-top: var(--space-3);
+    }
+
+    .optin-ok {
+      display: none;
+      margin-top: var(--space-3);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--green);
+    }
+
+    /* ═══════════════════════════════════════════════
        FOOTER
        ═══════════════════════════════════════════════ */
     .footer {
@@ -954,6 +1086,51 @@
     </div>
   </section>
 
+  <!-- ══════════ SMS OPT-IN (A2P 10DLC consent) ══════════ -->
+  <section class="optin" id="sms-opt-in">
+    <div class="optin-card">
+      <div class="optin-eyebrow">Stay informed</div>
+      <h2>Axeum Technologies Inc</h2>
+      <p class="optin-sub">Sign up to receive account updates and security alerts. Choose how you'd like to hear from us.</p>
+
+      <form id="sms-optin-form" novalidate>
+        <div class="optin-field">
+          <label for="optin-email">Email Address <span aria-hidden="true">*</span></label>
+          <input type="email" id="optin-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+
+        <div class="optin-field">
+          <label for="optin-phone">Mobile Phone Number (optional)</label>
+          <input type="tel" id="optin-phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
+        </div>
+
+        <div class="optin-consent">
+          <input type="checkbox" id="optin-sms-consent" name="smsConsent">
+          <label for="optin-sms-consent">
+            By checking, you consent to receive <strong>account updates and security alerts from Axeum Technologies Inc</strong>.
+            Message frequency may vary. Message and data rates may apply.
+            <strong>Reply HELP for help or STOP to opt-out.</strong>
+          </label>
+        </div>
+
+        <div class="optin-consent">
+          <input type="checkbox" id="optin-terms-consent" name="termsConsent" required>
+          <label for="optin-terms-consent">
+            By checking, I accept <a href="terms.html">Terms of Service</a> &amp; <a href="privacy.html">Privacy Policy</a>.
+          </label>
+        </div>
+
+        <button type="submit" class="optin-submit" id="optin-submit" disabled>Subscribe</button>
+        <p class="optin-ok" id="optin-ok">Thank you — you're subscribed. You can reply STOP at any time to opt out.</p>
+
+        <p class="optin-note">
+          Axeum Technologies Inc will only use your number to send the account updates and security alerts
+          you request. We never sell or share your information. Reply STOP to unsubscribe, HELP for help.
+        </p>
+      </form>
+    </div>
+  </section>
+
   <!-- ══════════ FOOTER ══════════ -->
   <footer class="footer reveal-children">
     <div class="footer-contact">
@@ -983,6 +1160,34 @@
         { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
       );
       targets.forEach(function (el) { observer.observe(el); });
+    })();
+
+    /* SMS Opt-In — gate Subscribe on required consent, confirm on submit */
+    (function () {
+      var form = document.getElementById('sms-optin-form');
+      if (!form) return;
+      var email = document.getElementById('optin-email');
+      var terms = document.getElementById('optin-terms-consent');
+      var submit = document.getElementById('optin-submit');
+      var ok = document.getElementById('optin-ok');
+
+      function refresh() {
+        // Terms acceptance + a non-empty email are the minimum to enable Subscribe.
+        submit.disabled = !(terms.checked && email.value.trim().length > 0);
+      }
+      form.addEventListener('input', refresh);
+      form.addEventListener('change', refresh);
+      refresh();
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (submit.disabled) return;
+        // Static site: no backend wired. Show the compliant confirmation.
+        // (Point form.action at a real handler later to capture signups.)
+        ok.style.display = 'block';
+        submit.disabled = true;
+        submit.textContent = 'Subscribed';
+      });
     })();
 
     /* Hide Scroll Indicator */
