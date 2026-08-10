@@ -72,3 +72,8 @@ Reading other repos for context is always permitted.
 # axeumai.com
 
 *CLAUDE.md created 2026-05-27. Add project-specific content here.*
+
+
+## VERIFY-AGAINST-LIVE RULE (fleet-wide, CEO-directed 2026-08-09)
+
+Before asserting the state of any deployed system - an endpoint, an env var, a key, a database row, a task definition, a hook - verify against the LIVE surface (live API call, `vercel env ls`, live DB query, `aws describe`, actually executing the path) and paste the real result into your output. Code, seeds, docs, and prior HANDOFFs are claims, not state. Two false sweep findings (HOP-TECH-169/172) and three silent no-op bugs in one week (sync key, receipt-hook path, inbound-check path) all came from asserting file contents as live state. If the live surface is unreachable, say so explicitly - never substitute a file read and present it as verification. Origin: axeum-tech session 73 standing rule, elevated fleet-wide by the CEO.
