@@ -173,7 +173,7 @@ export function RunningToday() {
         <div className="mt-8 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div>
             <p className="text-5xl font-medium tracking-tight text-foreground sm:text-7xl">
-              150,000<span className="copper-text">+</span>
+              1,234,443<span className="copper-text">+</span>
             </p>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
               production receipts sealed at our founding validation site — each one independently
@@ -181,11 +181,7 @@ export function RunningToday() {
             </p>
           </div>
           <div className="border-l border-border pl-8">
-            <p className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">161</p>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              provisional patent filings protect the method.
-            </p>
-            <p className="mt-6 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-muted-foreground">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-muted-foreground">
               Figures as of August 2026
             </p>
 
