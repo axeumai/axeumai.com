@@ -1,0 +1,279 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * AXEUM design system — Brand Identity Package v2.4 canon.
+ * Oxide dark theme (AMD-012) as the system substrate, the Green System as the
+ * system voice (receipts, verification, live Registry states), and the Copper
+ * Spectrum as the brand voice (wordmark, headlines, CTAs). Never split the pairing.
+ */
+
+
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Cormorant Garamond", Garamond, Georgia, serif;
+  --font-mono: "JetBrains Mono", Consolas, Monaco, monospace;
+
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-signal: var(--signal);
+  --color-seal: var(--seal);
+  --color-copper: var(--copper);
+  --color-copper-bright: var(--copper-bright);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-verdigris: var(--verdigris);
+  --color-leaf-completed: var(--leaf-fired-completed);
+  --color-leaf-partial: var(--leaf-partial);
+  --color-leaf-adverse: var(--leaf-fired-adverse);
+  --color-leaf-absence: var(--leaf-absence-red);
+  --color-leaf-dormant: var(--leaf-dormant-grey);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Oxide dark theme (AMD-012) — system substrate */
+  --oxide: #04100d;
+  --oxide-deep: #020907;
+  --oxide-raised: #0a1c17;
+  --oxide-line: #ffffff1c;
+
+  --background: var(--oxide);
+  --foreground: #f8f5f1; /* Ivory */
+  --surface: #071612;
+  --surface-foreground: #f8f5f1;
+  --card: #081a15;
+  --card-foreground: #f8f5f1;
+  --popover: #081a15;
+  --popover-foreground: #f8f5f1;
+
+  /* System voice — the Green System */
+  --primary: #00c391; /* Witness Green */
+  --primary-foreground: #04100d;
+  --seal: #00c391;
+  --signal: #00e9a5; /* Witness Glow */
+  --verdigris: #169b86;
+
+  /* Brand voice — the Copper Spectrum */
+  --copper: #e3c7a3;
+  --copper-bright: #e8c9a0; /* Polished Copper */
+  --copper-conductor: #c79169;
+  --copper-raw: #b87333;
+
+  /* Receipt Leaf-State Palette (AMD-013) */
+  --leaf-fired-completed: #00c391;
+  --leaf-partial: #d4a04a;
+  --leaf-fired-adverse: #49709c;
+  --leaf-absence-red: #c0392b;
+  --leaf-dormant-grey: #8a847c;
+
+  --secondary: #132923;
+  --secondary-foreground: #f8f5f1;
+  --muted: #11231e;
+  --muted-foreground: #b6ad9f;
+  --accent: #00c391;
+  --accent-foreground: #f8f5f1;
+  --destructive: #c0392b;
+  --destructive-foreground: #f8f5f1;
+
+  --border: #1f3931;
+  --input: #1e332c;
+  --ring: #00c391;
+
+  --chart-1: #00c391;
+  --chart-2: #00e9a5;
+  --chart-3: #d4a574;
+  --chart-4: #c49a6c;
+  --chart-5: #8a847c;
+
+  --sidebar: #061410;
+  --sidebar-foreground: #f8f5f1;
+  --sidebar-primary: #00c391;
+  --sidebar-primary-foreground: #04100d;
+  --sidebar-accent: #132923;
+  --sidebar-accent-foreground: #f8f5f1;
+  --sidebar-border: #1f3931;
+  --sidebar-ring: #00c391;
+
+  /* Composites */
+  --gradient-seal: linear-gradient(135deg, #00e9a5 0%, #169b86 100%);
+  --gradient-copper: linear-gradient(135deg, #e8c9a0 0%, #b87333 100%);
+  --gradient-substrate: radial-gradient(
+      120% 90% at 80% 0%,
+      color-mix(in oklab, #00c391 16%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      80% 60% at 100% 100%,
+      color-mix(in oklab, #e3c7a3 12%, transparent) 0%,
+      transparent 68%
+    ),
+    radial-gradient(90% 70% at 0% 100%, #02090780 0%, transparent 65%);
+  --shadow-seal: 0 0 0 1px color-mix(in oklab, #00c391 22%, transparent),
+    0 30px 80px -30px color-mix(in oklab, #00c391 26%, transparent);
+  --shadow-plate: 0 1px 0 0 #ffffff0f inset, 0 40px 90px -40px #000000d9;
+  --shadow-copper: 0 0 0 1px color-mix(in oklab, #e3c7a3 26%, transparent),
+    0 30px 80px -30px color-mix(in oklab, #e3c7a3 30%, transparent);
+  --rule: #ffffff14;
+}
+
+
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-background);
+    background-image: var(--gradient-substrate);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 28%, transparent);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+}
+
+/* ---------- Utilities ---------- */
+
+@utility shell {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: 1.5rem;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+@utility rule-top {
+  border-top: 1px solid var(--rule);
+}
+
+@utility plate {
+  background: linear-gradient(180deg, var(--oxide-raised) 0%, var(--oxide-deep) 100%);
+
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-plate);
+}
+
+@utility seal-text {
+  background: var(--gradient-seal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility copper-text {
+  background: var(--gradient-copper);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility copper-plate {
+  background: var(--gradient-copper);
+  color: #2a1a0d;
+}
+
+@utility grid-etch {
+  background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+@utility redact {
+  font-family: var(--font-mono);
+  color: color-mix(in oklab, var(--muted-foreground) 60%, transparent);
+  letter-spacing: 0.05em;
+}
+
+@keyframes seal-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
+@utility live-dot {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: var(--color-signal);
+  animation: seal-pulse 2.4s ease-in-out infinite;
+}
