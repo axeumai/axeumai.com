@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 
-import coverSeal from "@/assets/cover-seal.png.asset.json";
-
 import { AXEUM_ADDRESS } from "@/components/axeum/LegalPage";
 
 
@@ -146,32 +144,6 @@ export function SiteFooter() {
             </Link>
           </div>
         </div>
-
-        <div className="mt-14">
-          <p className="mx-auto max-w-4xl text-center font-medium leading-snug tracking-tight text-foreground text-[clamp(1.15rem,2.4vw,1.9rem)]">
-            Actions are better than words. A third-party witness is better than a self-witness.
-            Receipts are our actions — Axeum is the witness — and we prove it{" "}
-            <a
-              href="https://verify.axeumai.com/RCP-mt05uoxo-6340c2af44b9f5ed"
-              target="_blank"
-              rel="noreferrer"
-              className="text-copper underline decoration-primary/50 decoration-1 underline-offset-4 transition-colors hover:text-foreground"
-            >
-              here
-            </a>
-            .
-          </p>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-8 sm:gap-16">
-            <img
-              src={coverSeal.url}
-              alt="Receipt of Record cover seal"
-              className="w-[16rem] max-w-[80vw] border border-border/70 sm:w-[18rem]"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
 
         <div className="rule-top mt-12 flex flex-col gap-2 pt-6 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground sm:flex-row sm:justify-between">
           <span>© {new Date().getFullYear()} Axeum Technologies, Inc.</span>
