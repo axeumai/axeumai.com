@@ -41,3 +41,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Standalone HTML exports dropped into the repo root - keep on disk, out of git
+AXEUM Website*.html
