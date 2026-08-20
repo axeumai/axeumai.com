@@ -6,7 +6,6 @@ import { HonorSystem, Definition } from "@/components/axeum/HonorSystem";
 import { Market } from "@/components/axeum/Market";
 import { HowItWorks, Engage, RunningToday } from "@/components/axeum/HowItWorks";
 import { Contact } from "@/components/axeum/Contact";
-import { SmsOptIn } from "@/components/axeum/SmsOptIn";
 
 const TITLE = "AXEUM — Registry of Record for the Autonomous Economy";
 const DESCRIPTION =
@@ -39,7 +38,6 @@ function Index() {
         <Engage />
         <RunningToday />
         <Contact />
-        <SmsOptIn />
       </main>
       <SiteFooter />
     </div>

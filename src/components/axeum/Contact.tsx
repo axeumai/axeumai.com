@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -13,7 +14,6 @@ const INTENTS = [
   "Engage the operator (Governed Orchestration)",
   "Exploring",
 ];
-
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(120, "Name is too long"),
@@ -30,15 +30,19 @@ const contactSchema = z.object({
     .max(255, "Email is too long"),
   intent: z.string().trim().min(1).max(200),
   workflow: z.string().trim().max(4000, "Please keep this under 4000 characters"),
+  phone: z.string().trim().max(32, "Enter a valid mobile number"),
+  smsConsent: z.boolean(),
 });
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [pending, setPending] = useState(false);
+  const [terms, setTerms] = useState(false);
+  const [smsConsent, setSmsConsent] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (pending || submitted) return;
+    if (pending || submitted || !terms) return;
 
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -48,6 +52,8 @@ export function Contact() {
       email: String(fd.get("email") ?? ""),
       intent: String(fd.get("intent") ?? INTENTS[0]),
       workflow: String(fd.get("workflow") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      smsConsent,
     });
 
     if (!parsed.success) {
@@ -57,14 +63,25 @@ export function Contact() {
       return;
     }
 
+    const d = parsed.data;
+    const base = {
+      name: d.name,
+      organization: d.organization,
+      email: d.email,
+      intent: d.intent,
+      workflow: d.workflow || null,
+    };
+
     setPending(true);
-    const { error } = await supabase.from("contact_requests").insert({
-      name: parsed.data.name,
-      organization: parsed.data.organization,
-      email: parsed.data.email,
-      intent: parsed.data.intent,
-      workflow: parsed.data.workflow || null,
-    });
+    let { error } = await supabase
+      .from("contact_requests")
+      .insert({ ...base, phone: d.phone || null, sms_consent: d.smsConsent });
+
+    // phone / sms_consent ship in a migration that may not be applied yet.
+    // PGRST204 = unknown column; fall back so a submission is never lost.
+    if (error?.code === "PGRST204") {
+      ({ error } = await supabase.from("contact_requests").insert(base));
+    }
     setPending(false);
 
     if (error) {
@@ -74,11 +91,14 @@ export function Contact() {
       return;
     }
 
-
     setSubmitted(true);
     form.reset();
+    setTerms(false);
+    setSmsConsent(false);
     toast.success("Request received", {
-      description: "We reply under signed NDA, within 48 hours.",
+      description: d.smsConsent
+        ? "We reply under signed NDA, within 48 hours. You're also signed up for alerts — reply STOP at any time to opt out."
+        : "We reply under signed NDA, within 48 hours.",
     });
   }
 
@@ -94,8 +114,15 @@ export function Contact() {
             Tell us the domain and the workflow. We will come back with the shortest path to a sealed
             record inside it.
           </p>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            You can also opt in to account updates and security alerts from Axeum Technologies Inc
+            while you are here.
+          </p>
           <p className="mt-8 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-muted-foreground">
             Replies under signed NDA · 48-hour response
+          </p>
+          <p className="mt-3 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-muted-foreground">
+            Reply STOP to unsubscribe · HELP for help
           </p>
         </div>
 
@@ -144,9 +171,99 @@ export function Contact() {
             </div>
           </div>
 
+          {/*
+            A2P 10DLC consent block. The `sms-opt-in` anchor is a carrier-registration
+            artifact — the campaign points at https://axeumai.com/#sms-opt-in as proof of a
+            public, unchecked-by-default opt-in. Do not rename it, pre-check the box, make
+            the phone number required, or reword the consent / HELP / STOP disclosures
+            without re-filing the campaign. SMS consent must stay optional and separate
+            from the Terms acceptance below it.
+          */}
+          <div id="sms-opt-in" className="mt-10 scroll-mt-24 border-t border-border pt-8">
+            <p className="eyebrow">Stay informed</p>
+            <p className="mt-4 text-[0.82rem] leading-relaxed text-muted-foreground">
+              Sign up to receive account updates and security alerts from Axeum Technologies Inc.
+              Optional, and never a condition of a reply.
+            </p>
+
+            <div className="mt-6">
+              <label
+                htmlFor="phone"
+                className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-muted-foreground"
+              >
+                Mobile phone number (optional)
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                maxLength={32}
+                placeholder="(555) 123-4567"
+                className="mt-2 w-full border border-input bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary/60"
+              />
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <input
+                id="optin-sms-consent"
+                name="smsConsent"
+                type="checkbox"
+                checked={smsConsent}
+                onChange={(e) => setSmsConsent(e.target.checked)}
+                className="mt-1 size-4 shrink-0 accent-[var(--copper,#C49A6C)]"
+              />
+              <label
+                htmlFor="optin-sms-consent"
+                className="text-[0.82rem] leading-relaxed text-muted-foreground"
+              >
+                By checking, you consent to receive{" "}
+                <strong className="font-medium text-foreground">
+                  account updates and security alerts from Axeum Technologies Inc
+                </strong>
+                . Message frequency may vary. Message and data rates may apply.{" "}
+                <strong className="font-medium text-foreground">
+                  Reply HELP for help or STOP to opt-out.
+                </strong>
+              </label>
+            </div>
+
+            <div className="mt-5 flex gap-3">
+              <input
+                id="optin-terms-consent"
+                name="termsConsent"
+                type="checkbox"
+                required
+                checked={terms}
+                onChange={(e) => setTerms(e.target.checked)}
+                className="mt-1 size-4 shrink-0 accent-[var(--copper,#C49A6C)]"
+              />
+              <label
+                htmlFor="optin-terms-consent"
+                className="text-[0.82rem] leading-relaxed text-muted-foreground"
+              >
+                By checking, I accept the{" "}
+                <Link
+                  to="/terms"
+                  className="text-copper underline decoration-primary/50 decoration-1 underline-offset-4 transition-colors hover:text-foreground"
+                >
+                  Terms of Use
+                </Link>{" "}
+                &amp;{" "}
+                <Link
+                  to="/privacy"
+                  className="text-copper underline decoration-primary/50 decoration-1 underline-offset-4 transition-colors hover:text-foreground"
+                >
+                  Privacy Policy
+                </Link>
+                .
+              </label>
+            </div>
+          </div>
+
           <button
             type="submit"
-            disabled={pending || submitted}
+            disabled={pending || submitted || !terms}
             className="group mt-8 inline-flex items-center gap-3 px-6 py-4 font-mono text-[0.75rem] uppercase tracking-[0.18em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-70"
             style={{ backgroundImage: "var(--gradient-seal)" }}
           >
@@ -155,6 +272,12 @@ export function Contact() {
               →
             </span>
           </button>
+
+          <p className="mt-6 text-[0.75rem] leading-relaxed text-muted-foreground">
+            Axeum Technologies Inc will only use your number to send the account updates and
+            security alerts you request. We never sell or share your information. Reply STOP to
+            unsubscribe, HELP for help.
+          </p>
         </form>
       </div>
     </section>

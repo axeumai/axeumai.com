@@ -22,6 +22,8 @@ export type Database = {
           intent: string
           name: string
           organization: string
+          phone: string | null
+          sms_consent: boolean
           workflow: string | null
         }
         Insert: {
@@ -31,6 +33,8 @@ export type Database = {
           intent: string
           name: string
           organization: string
+          phone?: string | null
+          sms_consent?: boolean
           workflow?: string | null
         }
         Update: {
@@ -40,6 +44,8 @@ export type Database = {
           intent?: string
           name?: string
           organization?: string
+          phone?: string | null
+          sms_consent?: boolean
           workflow?: string | null
         }
         Relationships: []
