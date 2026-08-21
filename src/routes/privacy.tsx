@@ -88,17 +88,23 @@ function PrivacyRoute() {
           <p>
             This website uses Google Analytics 4 (measurement ID G-PY5CXN1NHJ) to measure aggregate
             usage: which pages are viewed, how visitors arrived, and broad device and approximate
-            location categories. Google sets cookies on your device for this purpose and processes
-            the resulting data as our service provider. We use it only to understand how the site is
-            used.
+            location categories. Google processes this data as our service provider. We use it only
+            to understand how the site is used.
           </p>
           <p>
-            We do not set advertising cookies, remarketing or conversion tags, session-replay tools,
-            or behavioral profiling technologies, and we do not sell or share analytics data. You can
-            opt out at any time by blocking analytics cookies in your browser or by installing
-            Google&rsquo;s Analytics Opt-out Browser Add-on; the site works fully without them.
-            Analytics are not applied to Protected Health Information or to authenticated
-            application sessions.
+            <strong className="text-foreground">Analytics run only with your consent.</strong> We
+            implement Google Consent Mode v2. On your first visit every storage category is set to
+            denied before any Google tag loads, and no analytics cookies are written unless you
+            select &ldquo;Accept analytics&rdquo; on the banner. If you decline, or simply ignore the
+            banner, no analytics cookies are set and the site works exactly the same.
+          </p>
+          <p>
+            You can change or withdraw your choice at any time using{" "}
+            <strong className="text-foreground">Cookie settings</strong> in the footer of every page.
+            Advertising storage, ad personalisation, and ad user data remain denied at all times: we
+            run no advertising, remarketing or conversion tags, no session-replay tools, and no
+            behavioral profiling, and we do not sell or share analytics data. Analytics are not
+            applied to Protected Health Information or to authenticated application sessions.
           </p>
           <p>
             Authenticated Axeum applications may use strictly necessary cookies or local storage to

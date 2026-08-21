@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 
 import { AXEUM_ADDRESS } from "@/components/axeum/LegalPage";
+import { openConsentSettings } from "@/lib/consent";
 
 
 const NAV = [
@@ -142,6 +143,14 @@ export function SiteFooter() {
             <Link to="/disclaimer" className="transition-colors hover:text-foreground">
               Disclaimer
             </Link>
+            {/* Withdrawing consent must be as easy as granting it. */}
+            <button
+              type="button"
+              onClick={openConsentSettings}
+              className="text-left uppercase tracking-[0.16em] transition-colors hover:text-foreground"
+            >
+              Cookie settings
+            </button>
           </div>
         </div>
 

@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
+import { ConsentBanner } from "@/components/axeum/ConsentBanner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 // Google Analytics 4. Declared here so it lands in <head> on the server-rendered
@@ -108,13 +109,41 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
+    // One inline script that sets Consent Mode v2 defaults and *then* injects the
+    // gtag.js loader itself.
+    //
+    // Do not split this back into a separate `{ src: ... }` entry. React hoists
+    // <script src> elements ahead of inline ones regardless of array order — when
+    // this was two entries the loader was emitted at byte 772 and the consent
+    // defaults at 1941, i.e. after it. Injecting the loader from inside the script
+    // makes the ordering a property of the code rather than of the renderer, so the
+    // defaults are always in dataLayer before any Google tag can read them.
+    //
+    // Advertising signals are hard-denied: this site runs no ads and the privacy
+    // policy says so. Granting them is a policy change, not a code change.
     scripts: [
-      { src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`, async: true },
       {
         children: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  analytics_storage: 'denied',
+  functionality_storage: 'granted',
+  security_storage: 'granted',
+  wait_for_update: 500
+});
+gtag('set', 'ads_data_redaction', true);
+gtag('set', 'url_passthrough', true);
 gtag('js', new Date());
-gtag('config', '${GA_MEASUREMENT_ID}');`,
+gtag('config', '${GA_MEASUREMENT_ID}');
+(function(){
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}';
+  document.head.appendChild(s);
+})();`,
       },
     ],
   }),
@@ -146,6 +175,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Toaster />
+      <ConsentBanner />
     </QueryClientProvider>
   );
 }
