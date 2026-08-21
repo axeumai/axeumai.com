@@ -1,1 +1,0 @@
-DELETE FROM public.contact_requests WHERE email = 'audit@example.com';
