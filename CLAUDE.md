@@ -72,7 +72,62 @@ Reading other repos for context is always permitted.
 
 # axeumai.com
 
-*CLAUDE.md created 2026-05-27. Add project-specific content here.*
+## STACK (as of 2026-08-21)
+
+TanStack Start (SSR) · Vite 8 · React 19 · Tailwind 4 · shadcn/ui · **bun** (not npm).
+Deployed to Vercel from `main`; every push to `main` is a production deploy.
+
+```sh
+bun install          bunx tsc --noEmit       bun run build       bun run dev
+```
+
+There is **no database**. There is no Supabase, and there must not be — see
+"Inherited scaffolding" below.
+
+## THREE THINGS THAT BREAK SILENTLY
+
+1. **Nitro preset.** `vite.config.ts` pins `nitro: { preset: "vercel" }`. Without it
+   the build emits a *Cloudflare Worker* that Vercel cannot run — and the build still
+   succeeds. After touching that file, confirm `.vercel/output/config.json` exists and
+   `.output/server/wrangler.json` does not.
+2. **A2P 10DLC opt-in.** The `sms-opt-in` element id in
+   `src/components/axeum/Contact.tsx` is the URL Axeum's carrier campaign registration
+   cites. Do not rename it, pre-check the consent box, make the phone required, or
+   reword the HELP/STOP disclosures. Consent stays optional and separate from Terms.
+3. **Consent Mode ordering.** React hoists `<script src>` ahead of inline scripts
+   regardless of array order. The GA4 loader is therefore injected *by* the inline
+   consent-default script in `src/routes/__root.tsx`. Do not split it back into two
+   head entries. Verify: `indexOf("'consent', 'default'") < indexOf('googletagmanager')`
+   in the served HTML.
+
+## CONTACT FORM
+
+Submissions are **emailed, never stored**. Microsoft Graph app-only send, Entra app
+"axeumai.com Contact Mailer" (`31ddda15-b0e6-4051-b85f-77bb9fbbca64`), from
+`notify@axeumai.com` to `CONTACT_TO_ADDRESS`, Reply-To set to the submitter. The app
+is restricted by an Exchange ApplicationAccessPolicy to `notify@` only.
+
+Server env (Vercel, production + development): `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`,
+`AZURE_CLIENT_SECRET`, `CONTACT_FROM_ADDRESS`, `CONTACT_TO_ADDRESS`. **Preview scope is
+unset** — the Vercel CLI requires an interactive branch prompt.
+
+## LEGAL PAGES ARE COUPLED TO CODE
+
+`/privacy` names the GA4 measurement ID and describes the consent gate. Changing what
+analytics collect, or what the contact form does with data, means editing
+`src/routes/privacy.tsx` **and** bumping its `effective` date in the same commit. The
+policy's own change clause requires it. `public/hipaa-notice.html` and
+`public/acceptable-use.html` are real static files linked by absolute URL from
+`/privacy` and `/terms` — deleting them dead-links the legal pages.
+
+## INHERITED SCAFFOLDING
+
+Lovable generated the original page and nothing since; Axeum self-hosts. Lovable Cloud
+auto-provisioned a Supabase project that the generated contact form wrote into. All of
+it was removed in `8a08561`. `@lovable.dev/vite-tanstack-config` (build-time only) and
+`src/lib/lovable-error-reporting.ts` (a no-op outside the Lovable editor — it makes no
+network call) remain and are harmless. Establish provenance before extending anything
+inherited.
 
 
 ## VERIFY-AGAINST-LIVE RULE (fleet-wide, CEO-directed 2026-08-09)

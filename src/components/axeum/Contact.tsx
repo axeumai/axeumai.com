@@ -71,8 +71,8 @@ export function Contact() {
             Two fields of intent, one artifact at the end.
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Tell us the domain and the workflow. We will come back with the shortest path to a sealed
-            record inside it.
+            Tell us the domain and the workflow. We will come back with the shortest path to a
+            sealed record inside it.
           </p>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
             You can also opt in to account updates and security alerts from Axeum Technologies Inc
