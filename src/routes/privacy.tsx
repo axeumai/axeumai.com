@@ -26,7 +26,7 @@ function PrivacyRoute() {
     <div className="min-h-screen">
       <SiteNav />
       <main>
-        <LegalPage title="Privacy Policy" effective="March 1, 2026" email="privacy@axeumai.com">
+        <LegalPage title="Privacy Policy" effective="August 21, 2026" email="privacy@axeumai.com">
           <p>
             Axeum Technologies, Inc. ("Axeum," "we," "us," or "our") respects your privacy. This
             Privacy Policy describes how we collect, use, store, and protect information across our
@@ -69,8 +69,9 @@ function PrivacyRoute() {
           <p>
             <strong className="text-foreground">Usage and access data.</strong> We collect standard
             technical information necessary for security and service operation, including IP
-            addresses, browser type, access timestamps, and pages or features accessed. We do not use
-            third-party tracking pixels or behavioral advertising technologies.
+            addresses, browser type, access timestamps, and pages or features accessed. Apart from
+            the website analytics described under &ldquo;Cookies and Tracking&rdquo; below, we do not
+            use third-party tracking pixels or behavioral advertising technologies.
           </p>
           <p>
             <strong className="text-foreground">Website enquiry data.</strong> When you submit the
@@ -85,18 +86,26 @@ function PrivacyRoute() {
 
           <LegalH2>Cookies and Tracking</LegalH2>
           <p>
-            This website does not set analytics cookies, advertising cookies, behavioral tracking
-            pixels, session-replay tools, or third-party marketing tags. We use only the strictly
-            necessary storage required for the site to function and to keep it secure. Because we
-            perform no cross-site tracking, there is nothing to opt out of, and Global Privacy
-            Control and Do Not Track browser signals require no additional action on our part.
+            This website uses Google Analytics 4 (measurement ID G-PY5CXN1NHJ) to measure aggregate
+            usage: which pages are viewed, how visitors arrived, and broad device and approximate
+            location categories. Google sets cookies on your device for this purpose and processes
+            the resulting data as our service provider. We use it only to understand how the site is
+            used.
+          </p>
+          <p>
+            We do not set advertising cookies, remarketing or conversion tags, session-replay tools,
+            or behavioral profiling technologies, and we do not sell or share analytics data. You can
+            opt out at any time by blocking analytics cookies in your browser or by installing
+            Google&rsquo;s Analytics Opt-out Browser Add-on; the site works fully without them.
+            Analytics are not applied to Protected Health Information or to authenticated
+            application sessions.
           </p>
           <p>
             Authenticated Axeum applications may use strictly necessary cookies or local storage to
             maintain your signed-in session and enforce security controls. These are required for the
-            application to operate and are not used for advertising or profiling. If we ever
-            introduce analytics or other non-essential technologies, we will update this policy and
-            provide notice and choice before doing so.
+            application to operate and are not used for advertising or profiling. If we introduce
+            further non-essential technologies, we will update this policy and provide notice before
+            doing so.
           </p>
 
 
