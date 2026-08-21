@@ -1,38 +1,12 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { z } from "zod";
 
-import { supabase } from "@/integrations/supabase/client";
+import { INTENTS, contactSchema } from "@/lib/contact-schema";
+import { submitContact } from "@/lib/submit-contact";
 
 const CONTACT_EMAIL = "web@axeumai.com";
-// This is also the destination inbox for submission notifications once an email API key is added.
-
-const INTENTS = [
-  "Seal the records I already keep (RAW)",
-  "Embed the Registry (Licensing)",
-  "Engage the operator (Governed Orchestration)",
-  "Exploring",
-];
-
-const contactSchema = z.object({
-  name: z.string().trim().min(1, "Name is required").max(120, "Name is too long"),
-  organization: z
-    .string()
-    .trim()
-    .min(1, "Organization is required")
-    .max(160, "Organization is too long"),
-  email: z
-    .string()
-    .trim()
-    .min(1, "Work email is required")
-    .email("Enter a valid work email")
-    .max(255, "Email is too long"),
-  intent: z.string().trim().min(1).max(200),
-  workflow: z.string().trim().max(4000, "Please keep this under 4000 characters"),
-  phone: z.string().trim().max(32, "Enter a valid mobile number"),
-  smsConsent: z.boolean(),
-});
+// Shown as the fallback path if the send fails. Nothing is stored: the email is the record.
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -64,32 +38,18 @@ export function Contact() {
     }
 
     const d = parsed.data;
-    const base = {
-      name: d.name,
-      organization: d.organization,
-      email: d.email,
-      intent: d.intent,
-      workflow: d.workflow || null,
-    };
 
     setPending(true);
-    let { error } = await supabase
-      .from("contact_requests")
-      .insert({ ...base, phone: d.phone || null, sms_consent: d.smsConsent });
-
-    // phone / sms_consent ship in a migration that may not be applied yet.
-    // PGRST204 = unknown column; fall back so a submission is never lost.
-    if (error?.code === "PGRST204") {
-      ({ error } = await supabase.from("contact_requests").insert(base));
-    }
-    setPending(false);
-
-    if (error) {
-      toast.error("Request could not be recorded", {
-        description: `Nothing was stored. Please email us directly at ${CONTACT_EMAIL}.`,
+    try {
+      await submitContact({ data: d });
+    } catch {
+      setPending(false);
+      toast.error("Request could not be sent", {
+        description: `Nothing was delivered. Please email us directly at ${CONTACT_EMAIL}.`,
       });
       return;
     }
+    setPending(false);
 
     setSubmitted(true);
     form.reset();
