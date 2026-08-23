@@ -129,6 +129,11 @@ it was removed in `8a08561`. `@lovable.dev/vite-tanstack-config` (build-time onl
 network call) remain and are harmless. Establish provenance before extending anything
 inherited.
 
+**Do not audit the Lovable workspace.** Projects still sitting there are bootstrap
+residue from how work was started before it was transferred into this repo — CEO,
+2026-08-22. Nothing Axeum runs depends on them. Their auto-provisioned databases are
+not an exposure to report. This repo is the system of record.
+
 
 ## VERIFY-AGAINST-LIVE RULE (fleet-wide, CEO-directed 2026-08-09)
 

@@ -20,11 +20,20 @@ half-finished. Start from the open items below, or from whatever the CEO asks.
 
 | # | Item | State |
 | --- | --- | --- |
-| 1 | Delete the Lovable project `axeum-witness-ledger` (`1dc2a2f4-8971-43f1-a860-c3770068bb45`) and the Supabase database it provisioned (`zsvgueahtzoxzckolxmi`) | **OPEN — CEO action.** Confirmed live: `get_database_status` returns `{"enabled":true,"stack":"supabase"}`. It still accepts anonymous writes. The repo owns every asset, so deleting costs nothing. Verify with the Lovable MCP afterwards. |
-| 2 | Confirm GA4 is receiving data | **UNVERIFIABLE from here.** The tag loads and Google recognises the property, but there is no GA connector — the Realtime report has to be checked in the GA UI after accepting the banner. |
-| 3 | Vercel **preview**-scope env vars unset | **BLOCKED.** The CLI requires an interactive branch prompt. Preview deploys render but the contact form will error. Fix in the Vercel dashboard, or accept it. |
-| 4 | Reject/Accept button weighting on the consent banner | **DEFERRED — CEO decision.** Accept is currently the visual primary. EU regulators increasingly expect equal prominence. One-line change if wanted. |
-| 5 | Pre-existing Prettier errors in `src/components/axeum/SiteChrome.tsx` (5) | **DEFERRED.** Inherited from the Lovable export, not introduced by us. `bun run lint` fails because of them. Left alone deliberately to avoid churn; `bunx eslint --fix` clears them. |
+| 1 | Confirm GA4 is receiving data | **UNVERIFIABLE from here.** The tag loads and Google recognises the property, but there is no GA connector — the Realtime report has to be checked in the GA UI after accepting the banner. |
+| 2 | Vercel **preview**-scope env vars unset | **BLOCKED.** The CLI requires an interactive branch prompt. Preview deploys render but the contact form will error. Fix in the Vercel dashboard, or accept it. |
+| 3 | Reject/Accept button weighting on the consent banner | **DEFERRED — CEO decision.** Accept is currently the visual primary. EU regulators increasingly expect equal prominence. One-line change if wanted. |
+| 4 | Pre-existing Prettier errors in `src/components/axeum/SiteChrome.tsx` (5) | **DEFERRED.** Inherited from the Lovable export, not introduced by us. `bun run lint` fails because of them. Left alone deliberately to avoid churn; `bunx eslint --fix` clears them. |
+| 5 | `marketing-agent` / actor_id `MKT` is absent from `actor.csv` | **OPEN — ops lane.** `CLAUDE.md` step 5 says to verify the persona in the registry of record; `grep -c ",MKT," actor.csv` returns 0, as does `marketing-agent` and `axeumai.com` as an Application URL. Startup step 5 has never been satisfiable. actor.csv is Operations-owned — HOP to `ops`, do not edit it directly. |
+
+### Closed, do not reopen
+
+**The Lovable workspace is not Axeum infrastructure.** A prior board carried "delete
+the Lovable project and its Supabase database" as CEO action. The CEO closed it on
+2026-08-22: the projects still sitting in that workspace are bootstrap residue from
+how work was first started, before it was transferred here. Nothing Axeum runs
+depends on them. Do not probe them, do not report their databases as exposure, and
+do not put them back on this board.
 
 ## Things that will bite you
 
