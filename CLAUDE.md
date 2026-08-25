@@ -66,6 +66,14 @@ Lanes: tech | law | ops | fin | hlth | csuite | res | ceo
 When work touches another pillar → write a HOP, do NOT modify another repo's code directly.
 Reading other repos for context is always permitted.
 
+**This repo does not author HOPs.** axeumai.com is inner to Pillar 4 — Operations,
+whose public address is axeum-docs. The routing table is explicit: inner repos do
+not author outbound handoffs, their pillar's public address does. Work involving
+Operations-owned assets — `actor.csv`, canon, the handoffs directory — is *inside*
+this pillar, so it is not cross-pillar and needs no HOP. LOS-001 rule 3 makes lane
+ceremony opt-in for internal, reversible work. Raise it directly instead of
+inventing a lane code for an actor that is not in the registry.
+
 <!-- ══════════════════════════════════════════════════════════════════ -->
 <!-- END AXEUM GOVERNANCE HEADER — project-specific content below     -->
 <!-- ══════════════════════════════════════════════════════════════════ -->

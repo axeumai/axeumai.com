@@ -1,5 +1,62 @@
 # HISTORY — axeumai.com
 
+## 2026-08-22 → 2026-08-25 — Startup audit; the Lovable item was never real
+
+Actor: marketing-agent (MKT). One code-bearing commit, `a2820c3`, plus this wrap.
+No application code changed. This session produced findings and corrections, not
+features.
+
+### Live verification at startup
+
+Production checked against the live surface, not the repo. `axeumai.com` returned
+`200` in 0.49s, and all three of the silently-breaking invariants in `CLAUDE.md`
+held in the served HTML: the consent-default block at byte 1736 precedes the
+googletagmanager loader at 2200, `G-PY5CXN1NHJ` is present, and the `sms-opt-in`
+id survives. Canon digest 2026-08-21 read; nothing in it fell to this repo.
+
+### The Lovable/Supabase item was retired as a false premise (`a2820c3`)
+
+The board carried "delete the Lovable project `axeum-witness-ledger` and the
+Supabase database it provisioned" as open CEO action, inherited from the previous
+session. This session re-verified it live — `list_projects` still returned the
+project, `get_database_status` returned `{"enabled":true,"stack":"supabase"}`, and
+`zsvgueahtzoxzckolxmi.supabase.co/rest/v1/` answered `401 {"message":"No API key
+found in request"}`, which is PostgREST running — and reported it to the CEO as
+outstanding exposure.
+
+The CEO closed it: the projects in that workspace are bootstrap residue from how
+work was started before it was transferred into this repo, and nothing Axeum runs
+depends on them. **The finding was technically accurate and strategically wrong** —
+two consecutive sessions spent the CEO's time re-deriving an item that was never
+actionable. The ruling is now recorded in the three places a session actually
+reads: `HANDOFF.md` under "Closed, do not reopen", `CLAUDE.md` under INHERITED
+SCAFFOLDING, and `MEMORY.md`.
+
+One correction to the previous session's record while closing it: it logged that
+the orphan database "still accepts anonymous writes." That was not re-tested. The
+publishable key is not in git history, so only reachability was verified. The
+anon-INSERT claim originates in `8a08561`'s commit message.
+
+### `actor_id MKT` is absent from the actor registry
+
+`CLAUDE.md` startup step 5 instructs verifying this actor's persona in `actor.csv`.
+It is not there: `grep -c ",MKT,"` returns 0, as do `marketing-agent` and
+`axeumai.com` as an Application URL, across ~3,300 rows. Under GOV-042 (actor.csv
+is the actor registry of record) `marketing-agent` is an unregistered actor and
+step 5 has never been satisfiable. Left unfixed deliberately — a malformed append
+to a shared CSV that every agent parses is a worse outcome than the gap.
+
+### A routing error, corrected rather than executed
+
+Twice during the session I told the CEO I would send a HOP to the `ops` lane about
+the missing actor row. No HOP was written, and on inspection the instrument was
+wrong: axeumai.com is inner to Pillar 4 — Operations, `actor.csv` is
+Operations-owned, so the work is inside the pillar and not cross-pillar at all.
+The routing table already says inner repos do not author outbound handoffs, and
+LOS-001 rule 3 makes lane ceremony opt-in for internal reversible work. Recorded
+in `CLAUDE.md` and `MEMORY.md` so the next session does not manufacture a lane
+code for an actor that has no registry row.
+
 ## 2026-08-19 → 2026-08-21 — Site replacement, contact-by-email, analytics
 
 Actor: marketing-agent (MKT). 11 commits, `69008c8..8b4eb6e`. All work below was
