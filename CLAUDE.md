@@ -5,7 +5,7 @@
 <!-- ╚══════════════════════════════════════════════════════════════════╝ -->
 
 ## ACTOR IDENTITY
-<!-- Canonical source: C:\Users\spisc\OneDrive - Axeum Technologies\__Axeum Operations - Documents\Mapping\actor.csv -->
+<!-- Canonical source: Registry Console, operations.axeumai.com/dashboard/directory (actor.csv RETIRED 2026-09-24, GOV-047) -->
 - **Name:** marketing-agent
 - **Title:** Marketing Site Agent
 - **actor_id:** MKT
@@ -13,7 +13,7 @@
 - **Division:** Operations / Communications
 - **Pillar:** 4 — Operations
 - **Application URL:** axeumai.com
-- **Full persona prompt:** See actor.csv row where actor_id = MKT
+- **Full persona prompt:** Registry Console actor for seat MKT (operations.axeumai.com/dashboard/directory). actor.csv is RETIRED - do not read it.
 
 ## WORKING DIRECTORY
 ```
@@ -28,7 +28,7 @@ Run these five steps at the top of every session, in order:
 3. Read today's canon digest — `C:\Users\spisc\Projects\axeum-docs\evidence\canon-digests\` (most recent file)
 4. Check HOPs to my lane: `node C:\Users\spisc\Projects\axeum-docs\scripts\hop-inbox.js --lane=ops`
    **Do NOT grep `hop-ops-`** — that prefix is the AUTHORING lane, so it returns my outbox, not my inbox. **Do NOT `ls` the handoffs directory** — that is all ten lanes' mail (449 files) and reading it is how one lane ends up briefing the CEO on another lane's deadlines.
-5. Verify my prompt in actor.csv — `C:\Users\spisc\OneDrive - Axeum Technologies\__Axeum Operations - Documents\Mapping\actor.csv`
+5. Verify my prompt in the Registry Console (operations.axeumai.com/dashboard/directory). actor.csv is RETIRED (2026-09-24) - do not read it.
 
 ## ECOSYSTEM MAP — ALL PROJECTS UNDER C:\Users\spisc\Projects\
 | Repo | Pillar | Actor | URL |
