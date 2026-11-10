@@ -20,6 +20,16 @@ handling (so `privacy.tsx` effective date unchanged). Verified: `tsc` clean,
 build emits `.vercel/output/config.json` with no `wrangler.json`, served HTML
 keeps consent-default before the googletagmanager loader.
 
+Follow-up (same day): Search Console reported `https://axeumai.com/` as "Duplicate
+without user-selected canonical" with Google choosing `https://www.axeumai.com/`,
+because both hosts served 200 with identical content. Added a permanent
+`www` -> apex redirect in `vercel.json` to match the canonical tags and sitemap.
+Search Console also shows a Safe Browsing "Deceptive pages" flag (Safe Browsing
+record dated 2025-10-22, no sample URL). A referring page,
+`bullfrog-goose-7mhj.squarespace.com/cart`, is an expired Squarespace site;
+live scan of all current pages and subdomain landing pages found nothing.
+Review requested by the CEO in Search Console.
+
 ## 2026-08-22 → 2026-08-25 — Startup audit; the Lovable item was never real
 
 Actor: marketing-agent (MKT). One code-bearing commit, `a2820c3`, plus this wrap.
