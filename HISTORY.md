@@ -1,5 +1,25 @@
 # HISTORY — axeumai.com
 
+## 2026-11-10 — Discoverability: AI-crawler access, sitemap, llms.txt, structured data
+
+Actor: marketing-agent (MKT). Requested by the CEO ("do everything necessary to
+enable Axeum to be found").
+
+Live check before the change: `/llms.txt` and `/sitemap.xml` returned 404, and
+`robots.txt` named only Googlebot, Bingbot, Twitterbot and facebookexternalhit
+(wildcard allow-all otherwise, so no AI crawler was blocked, but none was named).
+
+Added: explicit allow rules for OpenAI, Anthropic, Perplexity, Google-Extended,
+Applebot and LinkedIn crawlers plus a `Sitemap:` line; `public/sitemap.xml`;
+`public/llms.txt` (built from the live homepage copy, no new positioning
+language); per-route canonical, `og:url`, `og:image` (`public/og-image.jpg`,
+1200x630) and Twitter tags; Organization + WebSite JSON-LD on `/`.
+
+Not touched: analytics, consent defaults, contact form, legal pages' data
+handling (so `privacy.tsx` effective date unchanged). Verified: `tsc` clean,
+build emits `.vercel/output/config.json` with no `wrangler.json`, served HTML
+keeps consent-default before the googletagmanager loader.
+
 ## 2026-08-22 → 2026-08-25 — Startup audit; the Lovable item was never real
 
 Actor: marketing-agent (MKT). One code-bearing commit, `a2820c3`, plus this wrap.

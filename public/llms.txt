@@ -1,0 +1,43 @@
+# AXEUM
+
+> AXEUM is the Registry of Record for the autonomous economy: independently witnessed, sealed records of what systems executed, by whom, and under what conditions. Anyone can verify a receipt with no account required.
+
+AXEUM registers each action, and the ownership and conditions of that action, at the moment it occurs, whether or not any contract governs it. The registered record is sealed and authoritative as to what happened: executed, not executed, or partially executed. Everything that follows (payment, liability, contract, claim) is determined from those facts, not by the Registry.
+
+Category: Trust Infrastructure, the evidentiary layer that holds the authoritative record of what was executed, by whom, and under what conditions.
+
+## What the Registry registers
+
+Who, What, When, Where, and With What, bound at the moment an action crosses into consequence. The Registry holds headers, never content: records are hashed inside the client's boundary, and only cryptographic hashes reach the Registry.
+
+Each record is sealed in hardware, bound to an independent timestamp, and chained to its predecessor. The result is a Receipt of Record. Records are tamper-evident and self-proving: any attempt to alter history breaks the chain in public view. Any party can check a receipt through public verification with six cryptographic checks, no account, and no permission from AXEUM.
+
+The record is architected to FRE 902(13) and 902(14) in the United States and aligned to the requirements of an eIDAS 2.0 Qualified Electronic Ledger in Europe.
+
+## What AXEUM is not
+
+- Not a blockchain: a centralized, hardware-rooted, publicly verifiable registry.
+- Does not detect, score, or predict anything.
+- Does not hold client data.
+- Does not decide consequences; the parties do, from facts neither side can rewrite.
+
+## Ways to engage
+
+- Registry as Witness: keep your stack and logs as they are and seal the records you already make. Hashing happens inside your boundary; your data never travels.
+- Registry Licensing: platforms embed the Registry into workflows they operate themselves.
+- Governed Orchestration: AXEUM operates the workflow, on its infrastructure or inside the client's, under a service warranty, and the record comes built in.
+
+The actor pays almost nothing to be witnessed; the relying party pays for the right to rely.
+
+## Links
+
+- [Home](https://axeumai.com/): overview of the Registry of Record, how it works, and how to engage
+- [Verify a receipt](https://verify.axeumai.com/RCP-mt05uoxo-6340c2af44b9f5ed): public verification of a production receipt, no account required
+- [Engage the Registry](https://axeumai.com/#engage-the-registry): contact form; replies under signed NDA, 48-hour response
+- [Privacy Policy](https://axeumai.com/privacy)
+- [Terms of Use](https://axeumai.com/terms)
+- [Disclaimer](https://axeumai.com/disclaimer)
+
+## Company
+
+Axeum Technologies, Inc. — 252 NW 29th St, 9th Floor, Miami, FL 33127. AXEUM, Registry of Record, Receipt of Record, and Governed Orchestration are trademarks of Axeum Technologies, Inc.
