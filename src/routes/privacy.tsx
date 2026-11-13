@@ -278,7 +278,7 @@ function PrivacyRoute() {
             processes Protected Health Information (PHI) as a HIPAA Business Associate. For
             information about how PHI is handled in that context, please review our{" "}
             <a
-              href="https://www.axeumai.com/hipaa-notice.html"
+              href="https://axeumai.com/hipaa-notice.html"
               className="text-primary hover:underline"
             >
               Business Associate Privacy Practices

@@ -67,14 +67,14 @@ function TermsRoute() {
             additionally governed by: (a) the executed Business Associate Agreement between Axeum and
             the applicable Covered Entity; (b) the{" "}
             <a
-              href="https://www.axeumai.com/hipaa-notice.html"
+              href="https://axeumai.com/hipaa-notice.html"
               className="text-primary hover:underline"
             >
               Business Associate Privacy Practices
             </a>
             ; and (c) the{" "}
             <a
-              href="https://www.axeumai.com/acceptable-use.html"
+              href="https://axeumai.com/acceptable-use.html"
               className="text-primary hover:underline"
             >
               Acceptable Use Policy
